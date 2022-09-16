@@ -22,7 +22,7 @@ public class CategoriaResource {
 		List<Categoria> listaCategoria = new ArrayList<>();
 		listaCategoria.add(cat1);
 		listaCategoria.add(cat2);
-		listaCategoria.add(Categoria.builder().id(3).nome("Lazer").build());
+		listaCategoria.add(Categoria.builder().id(3).name("Lazer").build());
 		
 		return listaCategoria;
 	}
