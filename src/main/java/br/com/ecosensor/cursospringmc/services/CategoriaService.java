@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.ecosensor.cursospringmc.domain.Categoria;
 import br.com.ecosensor.cursospringmc.repositories.CategoriaRepository;
+import br.com.ecosensor.cursospringmc.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class CategoriaService {
@@ -16,7 +17,9 @@ public class CategoriaService {
 	
 	public Categoria findCategory(Integer id) {
 		Optional<Categoria> category = repository.findById(id);
-		return category.orElse(null);
+		return category.orElseThrow(
+				() -> new ObjectNotFoundException("Objeto não encontrado! Id: "
+						+ id + ", Tipo: " + Categoria.class.getSimpleName()));
 	}
 	
 }

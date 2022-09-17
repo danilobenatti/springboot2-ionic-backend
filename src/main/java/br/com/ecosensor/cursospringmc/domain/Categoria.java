@@ -13,6 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -39,6 +41,7 @@ public class Categoria implements Serializable {
 	@Column(name = "col_name", length = 45, nullable = false)
 	private String name;
 	
+	@JsonManagedReference
 	@Builder.Default
 	@ManyToMany(mappedBy = "categories")
 	private List<Produto> products = new ArrayList<>();
