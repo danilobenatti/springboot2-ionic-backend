@@ -10,10 +10,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import br.com.ecosensor.cursospringmc.domain.Categoria;
 import br.com.ecosensor.cursospringmc.domain.Cidade;
+import br.com.ecosensor.cursospringmc.domain.Cliente;
+import br.com.ecosensor.cursospringmc.domain.Endereco;
 import br.com.ecosensor.cursospringmc.domain.Estado;
 import br.com.ecosensor.cursospringmc.domain.Produto;
+import br.com.ecosensor.cursospringmc.domain.enums.TipoCliente;
 import br.com.ecosensor.cursospringmc.repositories.CategoriaRepository;
 import br.com.ecosensor.cursospringmc.repositories.CidadeRepository;
+import br.com.ecosensor.cursospringmc.repositories.ClienteRepository;
+import br.com.ecosensor.cursospringmc.repositories.EnderecoRepository;
 import br.com.ecosensor.cursospringmc.repositories.EstadoRepository;
 import br.com.ecosensor.cursospringmc.repositories.ProdutoRepository;
 
@@ -31,6 +36,12 @@ public class CursospringmcApplication implements CommandLineRunner {
 	
 	@Autowired
 	CidadeRepository cidadeRepository;
+	
+	@Autowired
+	ClienteRepository clienteRepository;
+	
+	@Autowired
+	EnderecoRepository enderecoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursospringmcApplication.class, args);
@@ -71,10 +82,28 @@ public class CursospringmcApplication implements CommandLineRunner {
 		Cidade c3 = Cidade.builder().name("Sorriso").estado(est2).build();
 		
 		est1.getCidades().add(c1);
-		est2.getCidades().addAll(Arrays.asList(c2,c3));
+		est2.getCidades().addAll(Arrays.asList(c2, c3));
 		
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 		
+		Cliente cli1 = Cliente.builder().name("Pedro Augusto")
+				.email("augusto@email.com").cpfOuCnpj("11122233344")
+				.clientType(TipoCliente.PESSOAJURIDICA.getCode()).build();
+		
+		cli1.getTelefones().addAll(Arrays.asList("9998893322", "8898894455"));
+		
+		clienteRepository.save(cli1);
+		
+		Endereco e1 = Endereco.builder().street("Rua Pedro Moreira")
+				.number("1020").complement("AP5").district("Centro")
+				.zipCode("99000555").cliente(cli1).cidade(c1).build();
+		Endereco e2 = Endereco.builder().street("Avenida Cabral Neto")
+				.number("88").district("Jardim Esplanada").zipCode("45520123")
+				.cliente(cli1).cidade(c2).build();
+		
+		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		
+		enderecoRepository.saveAll(Arrays.asList(e1, e2));
 	}
 	
 }

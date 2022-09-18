@@ -58,7 +58,7 @@ public class Produto implements Serializable {
 			foreignKey = @ForeignKey(name = "fk_product__idproduct", 
 				foreignKeyDefinition = "foreign key (id_product) references tbl_product(id_product) on delete cascade")), 
 		inverseJoinColumns = @JoinColumn(name = "id_category", nullable = false, 
-			foreignKey = @ForeignKey(name = "fk_product__idcategoria", 
+			foreignKey = @ForeignKey(name = "fk_product__idcategory", 
 				foreignKeyDefinition = "foreign key (id_category) references tbl_category(id_category) on delete cascade")))
 	private List<Categoria> categories = new ArrayList<>();
 
