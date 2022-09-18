@@ -18,6 +18,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import br.com.ecosensor.cursospringmc.domain.enums.TipoCliente;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -55,6 +57,7 @@ public class Cliente implements Serializable {
 	private Integer clientType;
 	
 	@Builder.Default
+	@JsonManagedReference
 	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
 	
