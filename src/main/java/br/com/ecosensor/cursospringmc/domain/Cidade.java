@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -21,14 +22,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@Table(name = "tbl_city")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Builder
+@Table(name = "tbl_city", 
+	uniqueConstraints = 
+		@UniqueConstraint(name = "uk_city__name_idstate", columnNames = { "col_name", "col_id_estate" }))
+@Entity
 public class Cidade implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -45,6 +48,6 @@ public class Cidade implements Serializable {
 	@JoinColumn(name = "col_id_estate", nullable = false, 
 		foreignKey = @ForeignKey(name = "fk_city__idestate", 
 			foreignKeyDefinition = "foreign key (col_id_estate) references tbl_estate(id_estate) on delete cascade"))
-	private Estado estado;
+	private Estado estate;
 	
 }

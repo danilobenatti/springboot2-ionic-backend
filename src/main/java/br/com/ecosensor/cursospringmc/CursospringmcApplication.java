@@ -1,5 +1,6 @@
 package br.com.ecosensor.cursospringmc;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,13 +14,20 @@ import br.com.ecosensor.cursospringmc.domain.Cidade;
 import br.com.ecosensor.cursospringmc.domain.Cliente;
 import br.com.ecosensor.cursospringmc.domain.Endereco;
 import br.com.ecosensor.cursospringmc.domain.Estado;
+import br.com.ecosensor.cursospringmc.domain.Pagamento;
+import br.com.ecosensor.cursospringmc.domain.PagamentoComBoleto;
+import br.com.ecosensor.cursospringmc.domain.PagamentoComCartao;
+import br.com.ecosensor.cursospringmc.domain.Pedido;
 import br.com.ecosensor.cursospringmc.domain.Produto;
+import br.com.ecosensor.cursospringmc.domain.enums.EstadoPagamento;
 import br.com.ecosensor.cursospringmc.domain.enums.TipoCliente;
 import br.com.ecosensor.cursospringmc.repositories.CategoriaRepository;
 import br.com.ecosensor.cursospringmc.repositories.CidadeRepository;
 import br.com.ecosensor.cursospringmc.repositories.ClienteRepository;
 import br.com.ecosensor.cursospringmc.repositories.EnderecoRepository;
 import br.com.ecosensor.cursospringmc.repositories.EstadoRepository;
+import br.com.ecosensor.cursospringmc.repositories.PagamentoRepository;
+import br.com.ecosensor.cursospringmc.repositories.PedidoRepository;
 import br.com.ecosensor.cursospringmc.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -42,6 +50,12 @@ public class CursospringmcApplication implements CommandLineRunner {
 	
 	@Autowired
 	EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	PedidoRepository pedidoRepository;
+	
+	@Autowired
+	PagamentoRepository pagamentoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursospringmcApplication.class, args);
@@ -77,12 +91,12 @@ public class CursospringmcApplication implements CommandLineRunner {
 		
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		
-		Cidade c1 = Cidade.builder().name("Goiânia").estado(est1).build();
-		Cidade c2 = Cidade.builder().name("Cuiabá").estado(est2).build();
-		Cidade c3 = Cidade.builder().name("Sorriso").estado(est2).build();
+		Cidade c1 = Cidade.builder().name("Goiânia").estate(est1).build();
+		Cidade c2 = Cidade.builder().name("Cuiabá").estate(est2).build();
+		Cidade c3 = Cidade.builder().name("Sorriso").estate(est2).build();
 		
-		est1.getCidades().add(c1);
-		est2.getCidades().addAll(Arrays.asList(c2, c3));
+		est1.getCities().add(c1);
+		est2.getCities().addAll(Arrays.asList(c2, c3));
 		
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 		
@@ -90,20 +104,44 @@ public class CursospringmcApplication implements CommandLineRunner {
 				.email("augusto@email.com").cpfOuCnpj("11122233344")
 				.clientType(TipoCliente.PESSOAJURIDICA.getCode()).build();
 		
-		cli1.getTelefones().addAll(Arrays.asList("9998893322", "8898894455"));
+		cli1.getPhones().addAll(Arrays.asList("9998893322", "8898894455"));
 		
 		clienteRepository.save(cli1);
 		
 		Endereco e1 = Endereco.builder().street("Rua Pedro Moreira")
 				.number("1020").complement("AP5").district("Centro")
-				.zipCode("99000555").cliente(cli1).cidade(c1).build();
+				.zipCode("99000555").client(cli1).city(c1).build();
 		Endereco e2 = Endereco.builder().street("Avenida Cabral Neto")
 				.number("88").district("Jardim Esplanada").zipCode("45520123")
-				.cliente(cli1).cidade(c2).build();
+				.client(cli1).city(c2).build();
 		
-		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		cli1.getAddresses().addAll(Arrays.asList(e1, e2));
 		
 		enderecoRepository.saveAll(Arrays.asList(e1, e2));
+		
+		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		
+		Pedido ped1 = Pedido.builder().instant(df.parse("15/12/2021 09:23"))
+				.client(cli1).deliveryAddress(e1).build();
+		
+		Pedido ped2 = Pedido.builder().instant(df.parse("27/09/2022 15:46"))
+				.client(cli1).deliveryAddress(e2).build();
+		
+		Pagamento pagto1 = PagamentoComCartao.builder().order(ped1)
+				.numberOfInstallments(3).build();
+		pagto1.setStatus(EstadoPagamento.QUITADO);
+		ped1.setPayment(pagto1);
+		
+		Pagamento pagto2 = PagamentoComBoleto.builder().order(ped2)
+				.expirationDate(df.parse("20/01/2022 00:00")).payDay(null).build();
+		pagto2.setStatus(EstadoPagamento.PENDENTE);
+		ped2.setPayment(pagto2);
+		
+		cli1.getOrders().addAll(Arrays.asList(ped1, ped2));
+		
+		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
+		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+		
 	}
 	
 }

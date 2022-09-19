@@ -25,15 +25,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@Table(name = "tbl_product", uniqueConstraints = 
-		@UniqueConstraint(name = "uk_product__name", columnNames = "col_name"))
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Builder
+@Table(name = "tbl_product", 
+	uniqueConstraints = 
+		@UniqueConstraint(name = "uk_product__name", columnNames = "col_name"))
+@Entity
 public class Produto implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

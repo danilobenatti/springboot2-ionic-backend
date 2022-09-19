@@ -28,14 +28,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@Table(name = "tbl_client")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Builder
+@Table(name = "tbl_client", 
+	uniqueConstraints = 
+		@UniqueConstraint(name = "uk_cliente__email", columnNames = "col_email"))
+@Entity
 public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -44,22 +46,22 @@ public class Cliente implements Serializable {
 	@Column(name = "id_client")
 	private Integer id;
 	
-	@Column(name = "col_name")
+	@Column(name = "col_name", nullable = false)
 	private String name;
 	
-	@Column(name = "col_email")
+	@Column(name = "col_email", nullable = false)
 	private String email;
 	
-	@Column(name = "col_cpfoucnpj")
+	@Column(name = "col_cpfoucnpj", nullable = false, unique = true)
 	private String cpfOuCnpj;
 	
-	@Column(name = "col_clienttype")
+	@Column(name = "col_clienttype", nullable = false)
 	private Integer clientType;
 	
 	@Builder.Default
 	@JsonManagedReference
-	@OneToMany(mappedBy = "cliente")
-	private List<Endereco> enderecos = new ArrayList<>();
+	@OneToMany(mappedBy = "client")
+	private List<Endereco> addresses = new ArrayList<>();
 	
 	@Builder.Default
 	@ElementCollection
@@ -68,7 +70,11 @@ public class Cliente implements Serializable {
 			foreignKey = @ForeignKey(name = "fk_phone__idclient", 
 			foreignKeyDefinition = "foreign key (cliente_id_client) references tbl_client(id_client) on delete cascade"))
 	@Column(name = "col_phonenumber", length = 20, nullable = false)
-	private Set<String> telefones = new HashSet<>();
+	private Set<String> phones = new HashSet<>();
+	
+	@Builder.Default
+	@OneToMany(mappedBy = "client")
+	private List<Pedido> orders = new ArrayList<>();
 	
 	public Cliente(Integer id, String name, String email, String cpfOuCnpj,
 			TipoCliente clientType) {

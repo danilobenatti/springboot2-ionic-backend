@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -21,14 +22,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@Table(name = "tbl_estate")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Builder
+@Table(name = "tbl_estate", 
+	uniqueConstraints = 
+		@UniqueConstraint(name = "uk_estate__name", columnNames = "col_name"))
+@Entity
 public class Estado implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -40,13 +43,13 @@ public class Estado implements Serializable {
 	@Column(name = "col_name", length = 45, nullable = false)
 	private String name;
 	
-	@Column(name = "col_uf", length = 2, nullable = false)
+	@Column(name = "col_uf", length = 2, nullable = false, unique = true)
 	private String uf;
 	
 	@Builder.Default
 	@JsonBackReference
-	@OneToMany(mappedBy = "estado")
-	private List<Cidade> cidades = new ArrayList<>();
+	@OneToMany(mappedBy = "estate")
+	private List<Cidade> cities = new ArrayList<>();
 	
 	public Estado(Integer id, String name, String uf) {
 		super();

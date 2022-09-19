@@ -29,7 +29,7 @@ public enum TipoCliente {
 				return type;
 			}
 		}
-		throw new IllegalArgumentException("Invalid code for type: " + code);
+		throw new IllegalArgumentException("Invalid code for client: " + code);
 	}
 	
 }

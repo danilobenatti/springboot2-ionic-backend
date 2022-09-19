@@ -22,14 +22,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@Table(name = "tbl_address")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Builder
+@Table(name = "tbl_address")
+@Entity
 public class Endereco implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -41,13 +41,13 @@ public class Endereco implements Serializable {
 	@Column(name = "col_street", length = 150, nullable = false)
 	private String street;
 	
-	@Column(name= "col_number", length = 25)
+	@Column(name= "col_number", length = 25, nullable = false)
 	private String number;
 	
 	@Column(name = "col_complement", length = 45)
 	private String complement;
 	
-	@Column(name = "col_district", length = 80)
+	@Column(name = "col_district", length = 80, nullable = false)
 	private String district;
 	
 	@Column(name = "col_zipcode", length = 10)
@@ -58,11 +58,11 @@ public class Endereco implements Serializable {
 	@JoinColumn(name = "id_client", nullable = false, 
 		foreignKey = @ForeignKey(name = "fk_address__idclient", 
 			foreignKeyDefinition = "foreign key (id_client) references tbl_client(id_client) on delete cascade"))
-	private Cliente cliente;
+	private Cliente client;
 	
 	@ManyToOne(targetEntity = Cidade.class, optional = false, cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "id_city", nullable = false, 
 		foreignKey = @ForeignKey(name = "fk_address__idcity", 
 			foreignKeyDefinition = "foreign key (id_city) references tbl_city(id_city) on delete cascade"))
-	private Cidade cidade;
+	private Cidade city;
 }
