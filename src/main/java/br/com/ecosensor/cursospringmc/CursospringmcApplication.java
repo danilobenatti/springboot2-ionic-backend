@@ -14,6 +14,7 @@ import br.com.ecosensor.cursospringmc.domain.Cidade;
 import br.com.ecosensor.cursospringmc.domain.Cliente;
 import br.com.ecosensor.cursospringmc.domain.Endereco;
 import br.com.ecosensor.cursospringmc.domain.Estado;
+import br.com.ecosensor.cursospringmc.domain.ItemPedido;
 import br.com.ecosensor.cursospringmc.domain.Pagamento;
 import br.com.ecosensor.cursospringmc.domain.PagamentoComBoleto;
 import br.com.ecosensor.cursospringmc.domain.PagamentoComCartao;
@@ -26,6 +27,7 @@ import br.com.ecosensor.cursospringmc.repositories.CidadeRepository;
 import br.com.ecosensor.cursospringmc.repositories.ClienteRepository;
 import br.com.ecosensor.cursospringmc.repositories.EnderecoRepository;
 import br.com.ecosensor.cursospringmc.repositories.EstadoRepository;
+import br.com.ecosensor.cursospringmc.repositories.ItemPedidoRepository;
 import br.com.ecosensor.cursospringmc.repositories.PagamentoRepository;
 import br.com.ecosensor.cursospringmc.repositories.PedidoRepository;
 import br.com.ecosensor.cursospringmc.repositories.ProdutoRepository;
@@ -57,6 +59,9 @@ public class CursospringmcApplication implements CommandLineRunner {
 	@Autowired
 	PagamentoRepository pagamentoRepository;
 	
+	@Autowired
+	ItemPedidoRepository itemPedidoRepository;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(CursospringmcApplication.class, args);
 	}
@@ -72,10 +77,10 @@ public class CursospringmcApplication implements CommandLineRunner {
 		categoriaRepository.saveAll(asList);
 		
 		Produto p1 = Produto.builder().name("Copo Descartável 100und")
-				.price(20.00).build();
+				.unitPrice(20.00).build();
 		Produto p2 = Produto.builder().name("Guardanapo Papel 50und")
-				.price(15.00).build();
-		Produto p3 = Produto.builder().name("Régua 30cm").price(10.00).build();
+				.unitPrice(15.00).build();
+		Produto p3 = Produto.builder().name("Régua 30cm").unitPrice(10.00).build();
 		
 		cat1.getProducts().addAll(Arrays.asList(p1, p2, p3));
 		cat2.getProducts().add(p3);
@@ -133,7 +138,8 @@ public class CursospringmcApplication implements CommandLineRunner {
 		ped1.setPayment(pagto1);
 		
 		Pagamento pagto2 = PagamentoComBoleto.builder().order(ped2)
-				.expirationDate(df.parse("20/01/2022 00:00")).payDay(null).build();
+				.expirationDate(df.parse("20/01/2022 00:00")).payDay(null)
+				.build();
 		pagto2.setStatus(EstadoPagamento.PENDENTE);
 		ped2.setPayment(pagto2);
 		
@@ -141,6 +147,19 @@ public class CursospringmcApplication implements CommandLineRunner {
 		
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 3, 60.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 5.00, 2, 20.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 10.00, 5, 50.00);
+		
+		ped1.getItems().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItems().add(ip3);
+		
+		p1.getItems().addAll(Arrays.asList(ip1));
+		p2.getItems().addAll(Arrays.asList(ip3));
+		p3.getItems().addAll(Arrays.asList(ip2));
+		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
 		
 	}
 	

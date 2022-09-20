@@ -18,7 +18,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
-@Table(name = "tbl_payment_creditcard")
+@Table(name = "tbl_payment__creditcard")
 @Entity
 public class PagamentoComCartao extends Pagamento {
 	private static final long serialVersionUID = 1L;

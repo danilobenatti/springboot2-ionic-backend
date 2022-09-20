@@ -2,6 +2,8 @@ package br.com.ecosensor.cursospringmc.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -55,4 +58,8 @@ public class Pedido implements Serializable {
 		foreignKey = @ForeignKey(name = "fk_order__idaddress",
 			foreignKeyDefinition = "foreign key (id_deliveryaddress) references tbl_address(id_address) on delete cascade"))
 	private Endereco deliveryAddress;
+	
+	@Builder.Default
+	@OneToMany(mappedBy = "id.order")
+	private transient Set<ItemPedido> items = new HashSet<>();
 }

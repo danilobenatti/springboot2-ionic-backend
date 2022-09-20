@@ -2,7 +2,9 @@ package br.com.ecosensor.cursospringmc.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -46,8 +49,8 @@ public class Produto implements Serializable {
 	@Column(name = "col_name", length = 150, nullable = false)
 	private String name;
 	
-	@Column(name = "col_price", precision = 8, scale = 2)
-	private Double price;
+	@Column(name = "col_unit_price", precision = 8, scale = 2)
+	private Double unitPrice;
 	
 	@JsonBackReference
 	@Builder.Default
@@ -62,12 +65,24 @@ public class Produto implements Serializable {
 			foreignKey = @ForeignKey(name = "fk_product__idcategory", 
 				foreignKeyDefinition = "foreign key (id_category) references tbl_category(id_category) on delete cascade")))
 	private List<Categoria> categories = new ArrayList<>();
-
-	public Produto(Integer id, String name, Double price) {
+	
+	@Builder.Default
+	@OneToMany(mappedBy = "id.product")
+	private transient Set<ItemPedido> items = new HashSet<>();
+	
+	public Produto(Integer id, String name, Double unitPrice) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.price = price;
+		this.unitPrice = unitPrice;
+	}
+	
+	public List<Pedido> getOrders() {
+		List<Pedido> orderList = new ArrayList<>();
+		for (ItemPedido item : items) {
+			orderList.add(item.getOrder());
+		}
+		return orderList;
 	}
 	
 }
