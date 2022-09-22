@@ -1,8 +1,5 @@
 package br.com.ecosensor.cursospringmc.resources;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,24 +17,16 @@ public class CategoriaResource {
 	@Autowired
 	private CategoriaService service;
 	
-	@GetMapping(value = "/listar")
-	public List<Categoria> listar() {
-		
-		Categoria cat1 = new Categoria(1, "Informática");
-		Categoria cat2 = new Categoria(2, "Escritório");
-		
-		List<Categoria> listaCategoria = new ArrayList<>();
-		listaCategoria.add(cat1);
-		listaCategoria.add(cat2);
-		listaCategoria.add(Categoria.builder().id(3).name("Lazer").build());
-		
-		return listaCategoria;
+	@GetMapping(value = "/todas")
+	public ResponseEntity<Iterable<Categoria>> buscarTodas() {
+		Iterable<Categoria> categories = service.findAllCategory();
+		return ResponseEntity.ok().body(categories);
 	}
 	
 	@GetMapping(value = "/buscar/{id}")
-	public ResponseEntity<Categoria> buscar(@PathVariable Integer id) {
-		Categoria categoria = service.findCategory(id);
-		return ResponseEntity.ok().body(categoria);
+	public ResponseEntity<Categoria> buscarUma(@PathVariable Integer id) {
+		Categoria category = service.findCategoryById(id);
+		return ResponseEntity.ok().body(category);
 	}
 	
 }

@@ -30,7 +30,8 @@ import lombok.Setter;
 @Builder
 @Table(name = "tbl_city", 
 	uniqueConstraints = 
-		@UniqueConstraint(name = "uk_city__name_idstate", columnNames = { "col_name", "col_id_estate" }))
+		@UniqueConstraint(name = "uk_city__name_idstate", 
+			columnNames = { "col_name", "col_id_estate" }))
 @Entity
 public class Cidade implements Serializable {
 	private static final long serialVersionUID = 1L;

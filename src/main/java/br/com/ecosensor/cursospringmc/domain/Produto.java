@@ -20,6 +20,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -66,9 +67,10 @@ public class Produto implements Serializable {
 				foreignKeyDefinition = "foreign key (id_category) references tbl_category(id_category) on delete cascade")))
 	private List<Categoria> categories = new ArrayList<>();
 	
+	@JsonIgnore
 	@Builder.Default
 	@OneToMany(mappedBy = "id.product")
-	private transient Set<ItemPedido> items = new HashSet<>();
+	private Set<ItemPedido> items = new HashSet<>();
 	
 	public Produto(Integer id, String name, Double unitPrice) {
 		super();
@@ -77,6 +79,7 @@ public class Produto implements Serializable {
 		this.unitPrice = unitPrice;
 	}
 	
+	@JsonIgnore
 	public List<Pedido> getOrders() {
 		List<Pedido> orderList = new ArrayList<>();
 		for (ItemPedido item : items) {

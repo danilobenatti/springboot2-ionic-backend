@@ -12,6 +12,8 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import br.com.ecosensor.cursospringmc.domain.enums.EstadoPagamento;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -38,6 +40,7 @@ public abstract class Pagamento implements Serializable {
 	@Column(name = "col_status", nullable = false)
 	private Integer status;
 	
+	@JsonBackReference
 	@OneToOne
 	@JoinColumn(name = "id_order", nullable = false)
 	@MapsId
@@ -53,7 +56,7 @@ public abstract class Pagamento implements Serializable {
 	public EstadoPagamento getStatus() {
 		return EstadoPagamento.toEnum(status);
 	}
-
+	
 	public void setStatus(EstadoPagamento status) {
 		this.status = status.getCode();
 	}

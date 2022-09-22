@@ -15,11 +15,15 @@ public class CategoriaService {
 	@Autowired
 	private CategoriaRepository repository;
 	
-	public Categoria findCategory(Integer id) {
+	public Categoria findCategoryById(Integer id) {
 		Optional<Categoria> category = repository.findById(id);
 		return category.orElseThrow(
-				() -> new ObjectNotFoundException("Object not found! Id: "
-						+ id + ", Type: " + Categoria.class.getSimpleName()));
+				() -> new ObjectNotFoundException("Object not found! Id: " + id
+						+ ", Type: " + Categoria.class.getSimpleName()));
+	}
+	
+	public Iterable<Categoria> findAllCategory() {
+		return repository.findAll();
 	}
 	
 }

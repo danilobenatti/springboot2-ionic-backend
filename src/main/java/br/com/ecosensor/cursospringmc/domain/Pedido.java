@@ -18,6 +18,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -41,12 +44,15 @@ public class Pedido implements Serializable {
 	@Column(name = "id_order")
 	private Integer id;
 	
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	@Column(name = "col_instant")
 	private Date instant;
 	
+	@JsonManagedReference
 	@OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
 	private Pagamento payment;
 	
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "id_client", nullable = false,
 		foreignKey = @ForeignKey(name= "fk_order__idclient",
@@ -61,5 +67,5 @@ public class Pedido implements Serializable {
 	
 	@Builder.Default
 	@OneToMany(mappedBy = "id.order")
-	private transient Set<ItemPedido> items = new HashSet<>();
+	private Set<ItemPedido> items = new HashSet<>();
 }

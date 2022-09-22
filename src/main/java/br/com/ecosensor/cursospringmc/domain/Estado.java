@@ -46,8 +46,8 @@ public class Estado implements Serializable {
 	@Column(name = "col_uf", length = 2, nullable = false, unique = true)
 	private String uf;
 	
-	@Builder.Default
 	@JsonBackReference
+	@Builder.Default
 	@OneToMany(mappedBy = "estate")
 	private List<Cidade> cities = new ArrayList<>();
 	

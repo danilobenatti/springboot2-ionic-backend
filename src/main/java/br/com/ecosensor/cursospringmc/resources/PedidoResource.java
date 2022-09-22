@@ -7,19 +7,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.ecosensor.cursospringmc.domain.Cliente;
-import br.com.ecosensor.cursospringmc.services.ClienteService;
+import br.com.ecosensor.cursospringmc.domain.Pedido;
+import br.com.ecosensor.cursospringmc.services.PedidoService;
 
 @RestController
-@RequestMapping(path = "/clientes")
-public class ClienteResource {
+@RequestMapping(path = "/pedidos")
+public class PedidoResource {
 	
 	@Autowired
-	private ClienteService service;
+	private PedidoService service;
 	
 	@GetMapping(value = "/buscar/{id}")
-	public ResponseEntity<Cliente> buscarUm(@PathVariable Integer id) {
-		Cliente cliente = service.findClientById(id);
-		return ResponseEntity.ok().body(cliente);
+	public ResponseEntity<Pedido> buscarUm(@PathVariable Integer id) {
+		Pedido order = service.findOrderById(id);
+		return ResponseEntity.ok().body(order);
 	}
 }

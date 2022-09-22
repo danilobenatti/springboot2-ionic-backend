@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import br.com.ecosensor.cursospringmc.domain.enums.TipoCliente;
@@ -58,8 +59,8 @@ public class Cliente implements Serializable {
 	@Column(name = "col_clienttype", nullable = false)
 	private Integer clientType;
 	
-	@Builder.Default
 	@JsonManagedReference
+	@Builder.Default
 	@OneToMany(mappedBy = "client")
 	private List<Endereco> addresses = new ArrayList<>();
 	
@@ -72,6 +73,7 @@ public class Cliente implements Serializable {
 	@Column(name = "col_phonenumber", length = 20, nullable = false)
 	private Set<String> phones = new HashSet<>();
 	
+	@JsonBackReference
 	@Builder.Default
 	@OneToMany(mappedBy = "client")
 	private List<Pedido> orders = new ArrayList<>();

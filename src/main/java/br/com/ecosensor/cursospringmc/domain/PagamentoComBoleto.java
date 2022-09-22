@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import br.com.ecosensor.cursospringmc.domain.enums.EstadoPagamento;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -23,9 +25,11 @@ import lombok.experimental.SuperBuilder;
 public class PagamentoComBoleto extends Pagamento {
 	private static final long serialVersionUID = 1L;
 	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Column(name = "col_expiration_date")
 	private Date expirationDate;
 	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Column(name = "col_pay_day")
 	private Date payDay;
 	

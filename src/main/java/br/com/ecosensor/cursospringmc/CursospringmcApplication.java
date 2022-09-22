@@ -82,12 +82,12 @@ public class CursospringmcApplication implements CommandLineRunner {
 				.unitPrice(15.00).build();
 		Produto p3 = Produto.builder().name("Régua 30cm").unitPrice(10.00).build();
 		
-		cat1.getProducts().addAll(Arrays.asList(p1, p2, p3));
+		cat1.getProducts().addAll(Arrays.asList(p1, p2));
 		cat2.getProducts().add(p3);
 		
 		p1.getCategories().addAll(Arrays.asList(cat1));
 		p2.getCategories().addAll(Arrays.asList(cat1));
-		p3.getCategories().addAll(Arrays.asList(cat1, cat2));
+		p3.getCategories().addAll(Arrays.asList(cat2));
 		
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
 		

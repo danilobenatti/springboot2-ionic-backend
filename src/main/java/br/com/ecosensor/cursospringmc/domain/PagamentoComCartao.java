@@ -23,7 +23,7 @@ import lombok.experimental.SuperBuilder;
 public class PagamentoComCartao extends Pagamento {
 	private static final long serialVersionUID = 1L;
 	
-	@Column(name = "col_number_of_installments")
+	@Column(name = "col_number_installments")
 	private Integer numberOfInstallments;
 	
 	public PagamentoComCartao(Integer id, EstadoPagamento status, Pedido order,
