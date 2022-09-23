@@ -19,7 +19,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -53,7 +52,7 @@ public class Produto implements Serializable {
 	@Column(name = "col_unit_price", precision = 8, scale = 2)
 	private Double unitPrice;
 	
-	@JsonBackReference
+	@JsonIgnore
 	@Builder.Default
 	@ManyToMany
 	@JoinTable(name = "tbl_product__category", 

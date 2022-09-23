@@ -25,5 +25,10 @@ public class CategoriaService {
 	public Iterable<Categoria> findAllCategory() {
 		return repository.findAll();
 	}
+
+	public Categoria insertCategory(Categoria obj) {
+		obj.setId(null);
+		return repository.save(obj);
+	}
 	
 }
