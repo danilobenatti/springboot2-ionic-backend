@@ -26,9 +26,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @EqualsAndHashCode(of = { "id" })
 @Builder
-@Table(name = "tbl_category", 
-	uniqueConstraints = 
-		@UniqueConstraint(name = "uk_category__name", columnNames = "col_name"))
+@Table(name = "tbl_category",
+		uniqueConstraints = @UniqueConstraint(name = "uk_category__name",
+				columnNames = "col_name"))
 @Entity
 public class Categoria implements Serializable {
 	private static final long serialVersionUID = 1L;

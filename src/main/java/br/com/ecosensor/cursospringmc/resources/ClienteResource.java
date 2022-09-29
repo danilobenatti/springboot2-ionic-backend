@@ -17,9 +17,9 @@ public class ClienteResource {
 	@Autowired
 	private ClienteService service;
 	
-	@GetMapping(value = "/buscar/{id}")
-	public ResponseEntity<Cliente> buscarUm(@PathVariable Integer id) {
-		Cliente cliente = service.findClientById(id);
-		return ResponseEntity.ok().body(cliente);
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<Cliente> findById(@PathVariable Integer id) {
+		Cliente client = service.findClientById(id);
+		return ResponseEntity.ok().body(client);
 	}
 }

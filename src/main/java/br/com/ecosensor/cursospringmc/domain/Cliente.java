@@ -35,9 +35,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Builder
-@Table(name = "tbl_client", 
-	uniqueConstraints = 
-		@UniqueConstraint(name = "uk_cliente__email", columnNames = "col_email"))
+@Table(name = "tbl_client",
+		uniqueConstraints = @UniqueConstraint(name = "uk_cliente__email",
+				columnNames = "col_email"))
 @Entity
 public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -67,9 +67,10 @@ public class Cliente implements Serializable {
 	@Builder.Default
 	@ElementCollection
 	@CollectionTable(name = "tbl_phone",
-		uniqueConstraints = @UniqueConstraint(name = "uk_phone__number", columnNames = {"col_phonenumber"}), 
-			foreignKey = @ForeignKey(name = "fk_phone__idclient", 
-			foreignKeyDefinition = "foreign key (cliente_id_client) references tbl_client(id_client) on delete cascade"))
+			uniqueConstraints = @UniqueConstraint(name = "uk_phone__number",
+					columnNames = { "col_phonenumber" }),
+			foreignKey = @ForeignKey(name = "fk_phone__idclient",
+					foreignKeyDefinition = "foreign key (cliente_id_client) references tbl_client(id_client) on delete cascade"))
 	@Column(name = "col_phonenumber", length = 20, nullable = false)
 	private Set<String> phones = new HashSet<>();
 	

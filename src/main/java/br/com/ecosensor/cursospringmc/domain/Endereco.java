@@ -41,7 +41,7 @@ public class Endereco implements Serializable {
 	@Column(name = "col_street", length = 150, nullable = false)
 	private String street;
 	
-	@Column(name= "col_number", length = 25, nullable = false)
+	@Column(name = "col_number", length = 25, nullable = false)
 	private String number;
 	
 	@Column(name = "col_complement", length = 45)
@@ -54,15 +54,17 @@ public class Endereco implements Serializable {
 	private String zipCode;
 	
 	@JsonBackReference
-	@ManyToOne(targetEntity = Cliente.class, optional = false, cascade = CascadeType.REMOVE)
-	@JoinColumn(name = "id_client", nullable = false, 
-		foreignKey = @ForeignKey(name = "fk_address__idclient", 
+	@ManyToOne(targetEntity = Cliente.class, optional = false,
+			cascade = CascadeType.REMOVE)
+	@JoinColumn(name = "id_client", nullable = false, foreignKey = @ForeignKey(
+			name = "fk_address__idclient",
 			foreignKeyDefinition = "foreign key (id_client) references tbl_client(id_client) on delete cascade"))
 	private Cliente client;
 	
-	@ManyToOne(targetEntity = Cidade.class, optional = false, cascade = CascadeType.REMOVE)
-	@JoinColumn(name = "id_city", nullable = false, 
-		foreignKey = @ForeignKey(name = "fk_address__idcity", 
+	@ManyToOne(targetEntity = Cidade.class, optional = false,
+			cascade = CascadeType.REMOVE)
+	@JoinColumn(name = "id_city", nullable = false, foreignKey = @ForeignKey(
+			name = "fk_address__idcity",
 			foreignKeyDefinition = "foreign key (id_city) references tbl_city(id_city) on delete cascade"))
 	private Cidade city;
 }

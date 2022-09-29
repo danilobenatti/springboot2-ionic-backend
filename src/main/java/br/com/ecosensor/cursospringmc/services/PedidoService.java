@@ -13,12 +13,12 @@ import br.com.ecosensor.cursospringmc.services.exceptions.ObjectNotFoundExceptio
 public class PedidoService {
 	
 	@Autowired
-	PedidoRepository repository;
+	private PedidoRepository repository;
 	
 	public Pedido findOrderById(Integer id) {
 		Optional<Pedido> order = repository.findById(id);
 		return order.orElseThrow(
-				() -> new ObjectNotFoundException("Object not found! Id: "
-						+ id + ", Type: " + Pedido.class.getSimpleName()));
+				() -> new ObjectNotFoundException("Object not found! Id: " + id
+						+ ", Type: " + Pedido.class.getSimpleName()));
 	}
 }

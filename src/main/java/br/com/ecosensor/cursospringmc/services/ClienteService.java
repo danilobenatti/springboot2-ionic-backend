@@ -13,12 +13,12 @@ import br.com.ecosensor.cursospringmc.services.exceptions.ObjectNotFoundExceptio
 public class ClienteService {
 	
 	@Autowired
-	ClienteRepository repository;
+	private ClienteRepository repository;
 	
 	public Cliente findClientById(Integer id) {
 		Optional<Cliente> client = repository.findById(id);
 		return client.orElseThrow(
-				() -> new ObjectNotFoundException("Object not found! Id: "
-						+ id + ", Type: " + Cliente.class.getSimpleName()));
+				() -> new ObjectNotFoundException("Object not found! Id: " + id
+						+ ", Type: " + Cliente.class.getSimpleName()));
 	}
 }
