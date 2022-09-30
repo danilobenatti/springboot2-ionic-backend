@@ -1,6 +1,9 @@
 package br.com.ecosensor.cursospringmc.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.ecosensor.cursospringmc.domain.Categoria;
+import br.com.ecosensor.cursospringmc.dto.CategoriaDTO;
 import br.com.ecosensor.cursospringmc.services.CategoriaService;
 
 @RestController
@@ -25,9 +29,11 @@ public class CategoriaResource {
 	private CategoriaService service;
 	
 	@GetMapping
-	public ResponseEntity<Iterable<Categoria>> findAll() {
-		Iterable<Categoria> categories = service.findAllCategory();
-		return ResponseEntity.ok().body(categories);
+	public ResponseEntity<Iterable<CategoriaDTO>> findAll() {
+		List<CategoriaDTO> collect = StreamSupport
+				.stream(service.findAllCategory().spliterator(), false)
+				.map(CategoriaDTO::new).collect(Collectors.toList());
+		return ResponseEntity.ok().body(collect);
 	}
 	
 	@GetMapping(value = "/{id}")
