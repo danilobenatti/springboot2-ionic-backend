@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -58,7 +60,9 @@ public class CategoriaResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> insert(@RequestBody Categoria obj) {
+	public ResponseEntity<Void> insert(
+			@Valid @RequestBody CategoriaDTO objDto) {
+		Categoria obj = service.fromDto(objDto);
 		obj = service.insertCategory(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(obj.getId()).toUri();
@@ -67,7 +71,8 @@ public class CategoriaResource {
 	
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Void> update(@PathVariable Integer id,
-			@RequestBody Categoria obj) {
+			@Valid @RequestBody CategoriaDTO objDto) {
+		Categoria obj = service.fromDto(objDto);
 		obj.setId(id);
 		obj = service.updateCategory(obj);
 		return ResponseEntity.noContent().build();
