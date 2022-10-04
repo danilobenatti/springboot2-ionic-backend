@@ -71,8 +71,14 @@ public class CursospringmcApplication implements CommandLineRunner {
 		
 		Categoria cat1 = Categoria.builder().name("Copa e Cozinha").build();
 		Categoria cat2 = Categoria.builder().name("Material Escolar").build();
+		Categoria cat3 = Categoria.builder().name("Eletrônicos").build();
+		Categoria cat4 = Categoria.builder().name("Jardinagem").build();
+		Categoria cat5 = Categoria.builder().name("Decoração").build();
+		Categoria cat6 = Categoria.builder().name("Perfumaria").build();
+		Categoria cat7 = Categoria.builder().name("Acessórios e Jóias").build();
 		
-		List<Categoria> asList = Arrays.asList(cat1, cat2);
+		List<Categoria> asList = Arrays.asList(cat1, cat2, cat3, cat4, cat5,
+				cat6, cat7);
 		
 		categoriaRepository.saveAll(asList);
 		
@@ -80,7 +86,8 @@ public class CursospringmcApplication implements CommandLineRunner {
 				.unitPrice(20.00).build();
 		Produto p2 = Produto.builder().name("Guardanapo Papel 50und")
 				.unitPrice(15.00).build();
-		Produto p3 = Produto.builder().name("Régua 30cm").unitPrice(10.00).build();
+		Produto p3 = Produto.builder().name("Régua 30cm").unitPrice(10.00)
+				.build();
 		
 		cat1.getProducts().addAll(Arrays.asList(p1, p2));
 		cat2.getProducts().add(p3);
