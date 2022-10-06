@@ -23,6 +23,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.ecosensor.cursospringmc.domain.Cliente;
 import br.com.ecosensor.cursospringmc.dto.ClienteDTO;
+import br.com.ecosensor.cursospringmc.dto.ClienteNewDTO;
 import br.com.ecosensor.cursospringmc.services.ClienteService;
 
 @RestController
@@ -60,7 +61,7 @@ public class ClienteResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteDTO objDto) {
+	public ResponseEntity<Void> insert(@RequestBody ClienteNewDTO objDto) {
 		Cliente obj = service.fromDto(objDto);
 		obj = service.insertClient(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
