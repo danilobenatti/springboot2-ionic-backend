@@ -49,7 +49,7 @@ public abstract class Pagamento implements Serializable {
 	protected Pagamento(Integer id, EstadoPagamento status, Pedido order) {
 		super();
 		this.id = id;
-		this.status = status.getCode();
+		this.status = (status != null) ? status.getCode() : null;
 		this.order = order;
 	}
 	
