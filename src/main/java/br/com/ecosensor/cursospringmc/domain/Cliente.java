@@ -53,10 +53,10 @@ public class Cliente implements Serializable {
 	@Column(name = "col_email", nullable = false)
 	private String email;
 	
-	@Column(name = "col_cpfoucnpj", nullable = false, unique = true)
+	@Column(name = "col_cpfoucnpj", nullable = true, unique = true)
 	private String cpfOuCnpj;
 	
-	@Column(name = "col_clienttype", nullable = false)
+	@Column(name = "col_clienttype", nullable = true)
 	private Integer clientType;
 	
 	@JsonManagedReference
@@ -86,7 +86,7 @@ public class Cliente implements Serializable {
 		this.name = name;
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
-		this.clientType = clientType.getCode();
+		this.clientType = (clientType != null) ? clientType.getCode() : null;
 	}
 	
 	public TipoCliente getClientType() {
