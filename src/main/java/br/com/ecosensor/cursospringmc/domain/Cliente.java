@@ -56,8 +56,8 @@ public class Cliente implements Serializable {
 	@Column(name = "col_cpfoucnpj", nullable = true, unique = true)
 	private String cpfOuCnpj;
 	
-	@Column(name = "col_clienttype", nullable = true)
-	private Integer clientType;
+	@Column(name = "col_type", nullable = true)
+	private Integer type;
 	
 	@JsonManagedReference
 	@Builder.Default
@@ -80,21 +80,21 @@ public class Cliente implements Serializable {
 	private List<Pedido> orders = new ArrayList<>();
 	
 	public Cliente(Integer id, String name, String email, String cpfOuCnpj,
-			TipoCliente clientType) {
+			TipoCliente type) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
-		this.clientType = (clientType != null) ? clientType.getCode() : null;
+		this.type = (type != null) ? type.getCode() : null;
 	}
 	
 	public TipoCliente getClientType() {
-		return TipoCliente.toEnum(clientType);
+		return TipoCliente.toEnum(type);
 	}
 	
-	public void setClientType(TipoCliente clientType) {
-		this.clientType = clientType.getCode();
+	public void setClientType(TipoCliente type) {
+		this.type = type.getCode();
 	}
 	
 }

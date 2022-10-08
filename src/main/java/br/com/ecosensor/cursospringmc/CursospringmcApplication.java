@@ -86,8 +86,8 @@ public class CursospringmcApplication implements CommandLineRunner {
 				.unitPrice(20.00).build();
 		Produto p2 = Produto.builder().name("Guardanapo Papel 50und")
 				.unitPrice(15.00).build();
-		Produto p3 = Produto.builder().name("Régua 30cm").unitPrice(10.00)
-				.build();
+		Produto p3 = Produto.builder().name("Régua Escalímetro Triangular 30cm")
+				.unitPrice(50.00).build();
 		
 		cat1.getProducts().addAll(Arrays.asList(p1, p2));
 		cat2.getProducts().add(p3);
@@ -113,8 +113,8 @@ public class CursospringmcApplication implements CommandLineRunner {
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 		
 		Cliente cli1 = Cliente.builder().name("Pedro Augusto")
-				.email("augusto@email.com").cpfOuCnpj("11122233344")
-				.clientType(TipoCliente.PESSOAJURIDICA.getCode()).build();
+				.email("augusto@email.com").cpfOuCnpj("49959308000158")
+				.type(TipoCliente.PESSOAJURIDICA.getCode()).build();
 		
 		cli1.getPhones().addAll(Arrays.asList("9998893322", "8898894455"));
 		
@@ -156,7 +156,7 @@ public class CursospringmcApplication implements CommandLineRunner {
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
 		
 		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 3, 60.00);
-		ItemPedido ip2 = new ItemPedido(ped1, p3, 5.00, 2, 20.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 5.00, 2, 100.00);
 		ItemPedido ip3 = new ItemPedido(ped2, p2, 10.00, 5, 50.00);
 		
 		ped1.getItems().addAll(Arrays.asList(ip1, ip2));

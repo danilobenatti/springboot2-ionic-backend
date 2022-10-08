@@ -77,11 +77,11 @@ public class ClienteService {
 	}
 	
 	public Cliente fromDto(ClienteNewDTO objDto) {
-		var client = Cliente.builder().name(objDto.getName())
+		Cliente client = Cliente.builder().name(objDto.getName())
 				.email(objDto.getEmail()).cpfOuCnpj(objDto.getCpfOuCnpj())
-				.clientType(objDto.getClientType()).build();
-		var city = Cidade.builder().id(objDto.getCityid()).build();
-		var address = Endereco.builder().street(objDto.getStreet())
+				.type(objDto.getType()).build();
+		Cidade city = Cidade.builder().id(objDto.getCityid()).build();
+		Endereco address = Endereco.builder().street(objDto.getStreet())
 				.number(objDto.getNumber()).complement(objDto.getComplement())
 				.district(objDto.getDistrict()).zipCode(objDto.getZipCode())
 				.client(client).city(city).build();

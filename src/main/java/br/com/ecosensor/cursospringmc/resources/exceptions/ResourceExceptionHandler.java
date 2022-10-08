@@ -35,10 +35,10 @@ public class ResourceExceptionHandler {
 	public ResponseEntity<StandardError> argumentNotValid(
 			MethodArgumentNotValidException ex, HttpServletRequest request) {
 		ValidationError error = new ValidationError(
-				HttpStatus.BAD_REQUEST.value(), "Error de validação",
+				HttpStatus.BAD_REQUEST.value(), "Validation error!",
 				System.currentTimeMillis());
-		for (FieldError fielError : ex.getBindingResult().getFieldErrors()) {
-			error.addError(fielError.getField(), fielError.getDefaultMessage());
+		for (FieldError e : ex.getBindingResult().getFieldErrors()) {
+			error.addError(e.getField(), e.getDefaultMessage());
 		}
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 	}

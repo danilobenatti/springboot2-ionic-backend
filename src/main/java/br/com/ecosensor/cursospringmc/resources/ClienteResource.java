@@ -46,9 +46,9 @@ public class ClienteResource {
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "size", defaultValue = "24") Integer size,
 			@RequestParam(value = "orderBy",
-			defaultValue = "name") String orderBy,
+					defaultValue = "name") String orderBy,
 			@RequestParam(value = "direction",
-			defaultValue = "ASC") String direction) {
+					defaultValue = "ASC") String direction) {
 		Page<Cliente> list = service.findPage(page, size, orderBy, direction);
 		Page<ClienteDTO> listDto = list.map(ClienteDTO::new);
 		return ResponseEntity.ok().body(listDto);
@@ -61,7 +61,8 @@ public class ClienteResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> insert(@RequestBody ClienteNewDTO objDto) {
+	public ResponseEntity<Void> insert(
+			@Valid @RequestBody ClienteNewDTO objDto) {
 		Cliente obj = service.fromDto(objDto);
 		obj = service.insertClient(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
