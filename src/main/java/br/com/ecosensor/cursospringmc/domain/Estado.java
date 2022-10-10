@@ -28,9 +28,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Builder
-@Table(name = "tbl_estate",
-		uniqueConstraints = @UniqueConstraint(name = "uk_estate__name",
-				columnNames = "col_name"))
+@Table(name = "tbl_estate", uniqueConstraints = {
+		@UniqueConstraint(name = "uk_estate__name", columnNames = "col_name"),
+		@UniqueConstraint(name = "uk_estate__uf", columnNames = "col_uf") })
 @Entity
 public class Estado implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -43,7 +43,7 @@ public class Estado implements Serializable {
 	@Column(name = "col_name", length = 45, nullable = false)
 	private String name;
 	
-	@Column(name = "col_uf", length = 2, nullable = false, unique = true)
+	@Column(name = "col_uf", length = 2, nullable = false)
 	private String uf;
 	
 	@JsonBackReference

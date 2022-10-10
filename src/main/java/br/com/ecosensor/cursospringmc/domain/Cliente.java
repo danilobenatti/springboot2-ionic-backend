@@ -35,9 +35,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Builder
-@Table(name = "tbl_client",
-		uniqueConstraints = @UniqueConstraint(name = "uk_cliente__email",
-				columnNames = "col_email"))
+@Table(name = "tbl_client", uniqueConstraints = {
+		@UniqueConstraint(name = "uk_client__email", columnNames = "col_email"),
+		@UniqueConstraint(name = "uk_client__cpfoucnpj",
+				columnNames = "col_cpfoucnpj") })
 @Entity
 public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -53,7 +54,7 @@ public class Cliente implements Serializable {
 	@Column(name = "col_email", nullable = false)
 	private String email;
 	
-	@Column(name = "col_cpfoucnpj", nullable = true, unique = true)
+	@Column(name = "col_cpfoucnpj", nullable = true)
 	private String cpfOuCnpj;
 	
 	@Column(name = "col_type", nullable = true)
