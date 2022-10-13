@@ -2,6 +2,7 @@ package br.com.ecosensor.cursospringmc.services.validation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -37,25 +38,23 @@ public class ClientInsertValidator
 		}
 		
 		if (client.getType().equals(TipoCliente.PESSOAFISICA.getCode())
-				&& !BR.isValidCpf(client.getCpfOuCnpj())) {
-			list.add(new FieldMessage("cpfOuCnpj", "Invalid CPF."));
+				&& !BR.isValidCpf(client.getCpfCnpj())) {
+			list.add(new FieldMessage("cpfCnpj", "Invalid CPF."));
 		}
 		
 		if (client.getType().equals(TipoCliente.PESSOAJURIDICA.getCode())
-				&& !BR.isValidCnpj(client.getCpfOuCnpj())) {
-			list.add(new FieldMessage("cpfOuCnpj", "Invalid CNPJ."));
+				&& !BR.isValidCnpj(client.getCpfCnpj())) {
+			list.add(new FieldMessage("cpfCnpj", "Invalid CNPJ."));
 		}
 		
-		List<Cliente> findByCpfOuCnpj = repository
-				.findByCpfOuCnpj(client.getCpfOuCnpj());
-		if (!findByCpfOuCnpj.isEmpty()) {
-			list.add(new FieldMessage("cpfOuCnpj",
-					"Already existing CPF/CNPJ."));
-		}
-		
-		List<Cliente> findByEmail = repository.findByEmail(client.getEmail());
-		if (!findByEmail.isEmpty()) {
+		Optional<Cliente> opt1 = repository.findByEmail(client.getEmail());
+		if (opt1.isPresent()) {
 			list.add(new FieldMessage("email", "Already existing e-mail."));
+		}
+		
+		Optional<Cliente> opt2 = repository.findByCpfCnpj(client.getCpfCnpj());
+		if (opt2.isPresent()) {
+			list.add(new FieldMessage("cpfCnpj", "Already existing CPF/CNPJ."));
 		}
 		
 		for (FieldMessage msg : list) {

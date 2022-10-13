@@ -28,7 +28,7 @@ public class ClienteNewDTO implements Serializable {
 	private String email;
 	
 	@NotEmpty(message = "Atributo 'CPF ou CNPJ': é obrigatório.")
-	private String cpfOuCnpj;
+	private String cpfCnpj;
 	
 	private Integer type;
 	

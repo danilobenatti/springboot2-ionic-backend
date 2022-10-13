@@ -78,7 +78,7 @@ public class ClienteService {
 	
 	public Cliente fromDto(ClienteNewDTO objDto) {
 		Cliente client = Cliente.builder().name(objDto.getName())
-				.email(objDto.getEmail()).cpfOuCnpj(objDto.getCpfOuCnpj())
+				.email(objDto.getEmail()).cpfCnpj(objDto.getCpfCnpj())
 				.type(objDto.getType()).build();
 		Cidade city = Cidade.builder().id(objDto.getCityid()).build();
 		Endereco address = Endereco.builder().street(objDto.getStreet())

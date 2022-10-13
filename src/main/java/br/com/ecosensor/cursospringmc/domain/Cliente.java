@@ -37,8 +37,8 @@ import lombok.Setter;
 @Builder
 @Table(name = "tbl_client", uniqueConstraints = {
 		@UniqueConstraint(name = "uk_client__email", columnNames = "col_email"),
-		@UniqueConstraint(name = "uk_client__cpfoucnpj",
-				columnNames = "col_cpfoucnpj") })
+		@UniqueConstraint(name = "uk_client__cpfcnpj",
+				columnNames = "col_cpfcnpj") })
 @Entity
 public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -54,8 +54,8 @@ public class Cliente implements Serializable {
 	@Column(name = "col_email", nullable = false)
 	private String email;
 	
-	@Column(name = "col_cpfoucnpj", nullable = true)
-	private String cpfOuCnpj;
+	@Column(name = "col_cpfcnpj", nullable = true)
+	private String cpfCnpj;
 	
 	@Column(name = "col_type", nullable = true)
 	private Integer type;
@@ -80,13 +80,13 @@ public class Cliente implements Serializable {
 	@OneToMany(mappedBy = "client")
 	private List<Pedido> orders = new ArrayList<>();
 	
-	public Cliente(Integer id, String name, String email, String cpfOuCnpj,
+	public Cliente(Integer id, String name, String email, String cpfCnpj,
 			TipoCliente type) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
-		this.cpfOuCnpj = cpfOuCnpj;
+		this.cpfCnpj = cpfCnpj;
 		this.type = (type != null) ? type.getCode() : null;
 	}
 	

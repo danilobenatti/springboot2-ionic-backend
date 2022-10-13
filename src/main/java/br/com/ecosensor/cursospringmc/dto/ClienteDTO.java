@@ -7,6 +7,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import br.com.ecosensor.cursospringmc.domain.Cliente;
+import br.com.ecosensor.cursospringmc.services.validation.ClientUpdate;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@ClientUpdate
 public class ClienteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

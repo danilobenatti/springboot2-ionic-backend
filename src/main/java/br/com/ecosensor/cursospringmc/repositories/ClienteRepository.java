@@ -1,6 +1,6 @@
 package br.com.ecosensor.cursospringmc.repositories;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -14,8 +14,8 @@ public interface ClienteRepository extends CrudRepository<Cliente, Integer>,
 		PagingAndSortingRepository<Cliente, Integer> {
 	
 	@Transactional(readOnly = true)
-	List<Cliente> findByEmail(String email);
+	Optional<Cliente> findByEmail(String email);
 	
 	@Transactional(readOnly = true)
-	List<Cliente> findByCpfOuCnpj(String cpfOuCnpj);
+	Optional<Cliente> findByCpfCnpj(String cpfCnpj);
 }

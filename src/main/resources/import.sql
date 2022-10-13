@@ -8,7 +8,7 @@ insert into tbl_estate(col_name, col_uf) values('Minas Gerais', 'MG'), ('São Pa
 
 insert into tbl_city(col_name, col_id_estate) values('Uberlândia', 1), ('São Paulo', 2), ('Campinas', 2);
 
-insert into tbl_client(col_name, col_email, col_cpfoucnpj, col_type) values ('Maria Silva', 'maria@email.com', '15716283047', 1);
+insert into tbl_client(col_name, col_email, col_cpfcnpj, col_type) values ('Maria Silva', 'maria@email.com', '15716283047', 1);
 
 insert into tbl_phone(cliente_id_client, col_phonenumber) values (1,'27363323'), (1,'93838393');
 
