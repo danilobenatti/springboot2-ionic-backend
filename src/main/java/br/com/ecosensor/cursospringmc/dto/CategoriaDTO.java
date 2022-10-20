@@ -20,7 +20,7 @@ public class CategoriaDTO implements Serializable {
 	
 	@NotEmpty(message = "Atributo 'nome': é obrigatório.")
 	@Size(min = 5, max = 80,
-			message = "Atributo 'nome': mínimo de 5 e máximo de 80 caracteres.")
+		message = "Atributo 'nome': mínimo de 5 e máximo de 80 caracteres.")
 	private String name;
 	
 	public CategoriaDTO(Categoria obj) {

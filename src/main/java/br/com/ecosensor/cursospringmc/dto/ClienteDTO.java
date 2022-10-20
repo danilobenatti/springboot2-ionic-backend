@@ -23,7 +23,7 @@ public class ClienteDTO implements Serializable {
 	
 	@NotEmpty(message = "Atributo 'nome': é obrigatório.")
 	@Size(min = 3, max = 120,
-			message = "Atributo 'nome': mínimo de 3 e máximo de 120 caracteres.")
+		message = "Atributo 'nome': mínimo de 3 e máximo de 120 caracteres.")
 	private String name;
 	
 	@NotEmpty(message = "Atributo 'e-mail': é obrigatório.")

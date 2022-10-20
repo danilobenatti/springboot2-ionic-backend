@@ -28,9 +28,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Builder
-@Table(name = "tbl_estate", uniqueConstraints = {
-		@UniqueConstraint(name = "uk_estate__name", columnNames = "col_name"),
-		@UniqueConstraint(name = "uk_estate__uf", columnNames = "col_uf") })
+@Table(name = "tbl_estate",
+	uniqueConstraints = {
+			@UniqueConstraint(name = "uk_estate__name",
+				columnNames = "col_name"),
+			@UniqueConstraint(name = "uk_estate__uf", columnNames = "col_uf") })
 @Entity
 public class Estado implements Serializable {
 	private static final long serialVersionUID = 1L;

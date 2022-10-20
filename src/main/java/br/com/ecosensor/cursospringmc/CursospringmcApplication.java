@@ -71,10 +71,10 @@ public class CursospringmcApplication implements CommandLineRunner {
 		
 		Categoria cat1 = Categoria.builder().name("Copa e Cozinha").build();
 		Categoria cat2 = Categoria.builder().name("Material Escolar").build();
-		Categoria cat3 = Categoria.builder().name("Eletrônicos").build();
-		Categoria cat4 = Categoria.builder().name("Jardinagem").build();
-		Categoria cat5 = Categoria.builder().name("Decoração").build();
-		Categoria cat6 = Categoria.builder().name("Perfumaria").build();
+		Categoria cat3 = Categoria.builder().name("Eletro-eletrônicos").build();
+		Categoria cat4 = Categoria.builder().name("Casa e Jardim").build();
+		Categoria cat5 = Categoria.builder().name("Lar e Conforto").build();
+		Categoria cat6 = Categoria.builder().name("Cosméticos").build();
 		Categoria cat7 = Categoria.builder().name("Acessórios e Jóias").build();
 		
 		List<Categoria> asList = Arrays.asList(cat1, cat2, cat3, cat4, cat5,
@@ -88,15 +88,45 @@ public class CursospringmcApplication implements CommandLineRunner {
 				.unitPrice(15.00).build();
 		Produto p3 = Produto.builder().name("Régua Escalímetro Triangular 30cm")
 				.unitPrice(50.00).build();
+		Produto p4 = Produto.builder().name("Regador 5Litros BomJardim")
+				.unitPrice(50.00).build();
+		Produto p5 = Produto.builder().name("Perfume KaiaK Oceano Natura 100ml")
+				.unitPrice(125.00).build();
+		Produto p6 = Produto.builder().name("Rádio AM/FM Sony")
+				.unitPrice(210.00).build();
+		Produto p7 = Produto.builder().name("Quadro para sala de estar")
+				.unitPrice(500.00).build();
+		Produto p8 = Produto.builder().name("Adubo fertilizante para roseiras")
+				.unitPrice(7.00).build();
+		Produto p9 = Produto.builder().name("Brinco Estelar Biju")
+				.unitPrice(10.00).build();
+		Produto p10 = Produto.builder().name("Colar artesanal Mão-de-Mãe")
+				.unitPrice(5.70).build();
+		Produto p11 = Produto.builder().name("Esmalte vermelho cereja 8ml")
+				.unitPrice(3.50).build();
 		
 		cat1.getProducts().addAll(Arrays.asList(p1, p2));
 		cat2.getProducts().add(p3);
+		cat3.getProducts().add(p6);
+		cat4.getProducts().addAll(Arrays.asList(p4, p8));
+		cat5.getProducts().add(p7);
+		cat6.getProducts().addAll(Arrays.asList(p5, p11));
+		cat7.getProducts().addAll(Arrays.asList(p9, p10));
 		
-		p1.getCategories().addAll(Arrays.asList(cat1));
-		p2.getCategories().addAll(Arrays.asList(cat1));
-		p3.getCategories().addAll(Arrays.asList(cat2));
+		p1.getCategories().add(cat1);
+		p2.getCategories().add(cat1);
+		p3.getCategories().add(cat2);
+		p4.getCategories().add(cat4);
+		p5.getCategories().add(cat6);
+		p6.getCategories().add(cat3);
+		p7.getCategories().add(cat5);
+		p8.getCategories().add(cat4);
+		p9.getCategories().add(cat7);
+		p10.getCategories().add(cat7);
+		p11.getCategories().add(cat6);
 		
-		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
+		produtoRepository.saveAll(
+				Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
 		
 		Estado est1 = Estado.builder().name("Goiás").uf("GO").build();
 		Estado est2 = Estado.builder().name("Mato Grosso").uf("MT").build();

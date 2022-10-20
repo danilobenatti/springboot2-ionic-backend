@@ -29,8 +29,8 @@ import lombok.Setter;
 @EqualsAndHashCode(of = "id")
 @Builder
 @Table(name = "tbl_city",
-		uniqueConstraints = @UniqueConstraint(name = "uk_city__name_idstate",
-				columnNames = { "col_name", "col_id_estate" }))
+	uniqueConstraints = @UniqueConstraint(name = "uk_city__name_idstate",
+		columnNames = { "col_name", "col_id_estate" }))
 @Entity
 public class Cidade implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -46,8 +46,8 @@ public class Cidade implements Serializable {
 	@JsonManagedReference
 	@ManyToOne(targetEntity = Estado.class, optional = false)
 	@JoinColumn(name = "col_id_estate", nullable = false,
-			foreignKey = @ForeignKey(name = "fk_city__idestate",
-					foreignKeyDefinition = "foreign key (col_id_estate) references tbl_estate(id_estate) on delete cascade"))
+		foreignKey = @ForeignKey(name = "fk_city__idestate",
+			foreignKeyDefinition = "foreign key (col_id_estate) references tbl_estate(id_estate) on delete cascade"))
 	private Estado estate;
 	
 }

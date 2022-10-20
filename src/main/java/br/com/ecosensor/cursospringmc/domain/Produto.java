@@ -35,8 +35,8 @@ import lombok.Setter;
 @EqualsAndHashCode(of = "id")
 @Builder
 @Table(name = "tbl_product",
-		uniqueConstraints = @UniqueConstraint(name = "uk_product__name",
-				columnNames = "col_name"))
+	uniqueConstraints = @UniqueConstraint(name = "uk_product__name",
+		columnNames = "col_name"))
 @Entity
 public class Produto implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -56,16 +56,14 @@ public class Produto implements Serializable {
 	@Builder.Default
 	@ManyToMany
 	@JoinTable(name = "tbl_product__category",
-			uniqueConstraints = @UniqueConstraint(
-					name = "uk_idproduct__idcategory",
-					columnNames = { "id_product", "id_category" }),
-			joinColumns = @JoinColumn(name = "id_product", nullable = false,
-					foreignKey = @ForeignKey(name = "fk_product__idproduct",
-							foreignKeyDefinition = "foreign key (id_product) references tbl_product(id_product) on delete cascade")),
-			inverseJoinColumns = @JoinColumn(name = "id_category",
-					nullable = false,
-					foreignKey = @ForeignKey(name = "fk_product__idcategory",
-							foreignKeyDefinition = "foreign key (id_category) references tbl_category(id_category)")))
+		uniqueConstraints = @UniqueConstraint(name = "uk_idproduct__idcategory",
+			columnNames = { "id_product", "id_category" }),
+		joinColumns = @JoinColumn(name = "id_product", nullable = false,
+			foreignKey = @ForeignKey(name = "fk_product__idproduct",
+				foreignKeyDefinition = "foreign key (id_product) references tbl_product(id_product) on delete cascade")),
+		inverseJoinColumns = @JoinColumn(name = "id_category", nullable = false,
+			foreignKey = @ForeignKey(name = "fk_product__idcategory",
+				foreignKeyDefinition = "foreign key (id_category) references tbl_category(id_category)")))
 	private List<Categoria> categories = new ArrayList<>();
 	
 	@JsonIgnore

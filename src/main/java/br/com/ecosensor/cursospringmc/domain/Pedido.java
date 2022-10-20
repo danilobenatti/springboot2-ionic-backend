@@ -55,14 +55,14 @@ public class Pedido implements Serializable {
 	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "id_client", nullable = false, foreignKey = @ForeignKey(
-			name = "fk_order__idclient",
-			foreignKeyDefinition = "foreign key (id_client) references tbl_client(id_client) on delete cascade"))
+		name = "fk_order__idclient",
+		foreignKeyDefinition = "foreign key (id_client) references tbl_client(id_client) on delete cascade"))
 	private Cliente client;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_deliveryaddress", nullable = false,
-			foreignKey = @ForeignKey(name = "fk_order__idaddress",
-					foreignKeyDefinition = "foreign key (id_deliveryaddress) references tbl_address(id_address) on delete cascade"))
+		foreignKey = @ForeignKey(name = "fk_order__idaddress",
+			foreignKeyDefinition = "foreign key (id_deliveryaddress) references tbl_address(id_address) on delete cascade"))
 	private Endereco deliveryAddress;
 	
 	@Builder.Default

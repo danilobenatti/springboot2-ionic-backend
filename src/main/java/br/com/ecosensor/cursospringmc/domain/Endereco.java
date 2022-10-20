@@ -55,16 +55,16 @@ public class Endereco implements Serializable {
 	
 	@JsonBackReference
 	@ManyToOne(targetEntity = Cliente.class, optional = false,
-			cascade = CascadeType.REMOVE)
+		cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "id_client", nullable = false, foreignKey = @ForeignKey(
-			name = "fk_address__idclient",
-			foreignKeyDefinition = "foreign key (id_client) references tbl_client(id_client) on delete cascade"))
+		name = "fk_address__idclient",
+		foreignKeyDefinition = "foreign key (id_client) references tbl_client(id_client) on delete cascade"))
 	private Cliente client;
 	
 	@ManyToOne(targetEntity = Cidade.class, optional = false,
-			cascade = CascadeType.REMOVE)
+		cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "id_city", nullable = false, foreignKey = @ForeignKey(
-			name = "fk_address__idcity",
-			foreignKeyDefinition = "foreign key (id_city) references tbl_city(id_city) on delete cascade"))
+		name = "fk_address__idcity",
+		foreignKeyDefinition = "foreign key (id_city) references tbl_city(id_city) on delete cascade"))
 	private Cidade city;
 }
