@@ -33,17 +33,17 @@ public class ItemPedido implements Serializable {
 	@Column(name = "col_quantity")
 	private Integer quantity;
 	
-	@Column(name = "col_subtotal_price")
-	private Double subTotalPrice;
+	@Column(name = "col_product_price")
+	private Double productPrice;
 	
 	public ItemPedido(Pedido order, Produto product, Double discount,
-			Integer quantity, Double subTotalPrice) {
+			Integer quantity) {
 		super();
 		id.setOrder(order);
 		id.setProduct(product);
 		this.discount = discount;
 		this.quantity = quantity;
-		this.subTotalPrice = subTotalPrice;
+		this.productPrice = product.getUnitPrice();
 	}
 	
 	@JsonIgnore
@@ -53,6 +53,10 @@ public class ItemPedido implements Serializable {
 	
 	public Produto getProduct() {
 		return id.getProduct();
+	}
+	
+	public Double getSubTotalProductPrice() {
+		return (1 - discount / 100) * (productPrice * quantity);
 	}
 	
 }

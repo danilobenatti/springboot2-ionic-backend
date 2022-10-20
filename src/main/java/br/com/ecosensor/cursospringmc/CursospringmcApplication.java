@@ -185,9 +185,9 @@ public class CursospringmcApplication implements CommandLineRunner {
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
 		
-		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 3, 60.00);
-		ItemPedido ip2 = new ItemPedido(ped1, p3, 5.00, 2, 100.00);
-		ItemPedido ip3 = new ItemPedido(ped2, p2, 10.00, 5, 50.00);
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 3);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 5.00, 2);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 10.00, 5);
 		
 		ped1.getItems().addAll(Arrays.asList(ip1, ip2));
 		ped2.getItems().add(ip3);

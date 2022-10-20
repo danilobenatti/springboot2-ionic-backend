@@ -68,4 +68,12 @@ public class Pedido implements Serializable {
 	@Builder.Default
 	@OneToMany(mappedBy = "id.order")
 	private Set<ItemPedido> items = new HashSet<>();
+	
+	public Double getTotalOrderPrice() {
+		var total = 0.0;
+		for (ItemPedido itemPedido : items) {
+			total += itemPedido.getSubTotalProductPrice();
+		}
+		return total;
+	}
 }
