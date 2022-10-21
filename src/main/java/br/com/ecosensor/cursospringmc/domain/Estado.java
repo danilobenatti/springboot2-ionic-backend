@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -48,7 +48,7 @@ public class Estado implements Serializable {
 	@Column(name = "col_uf", length = 2, nullable = false)
 	private String uf;
 	
-	@JsonBackReference
+	@JsonIgnore
 	@Builder.Default
 	@OneToMany(mappedBy = "estate")
 	private List<Cidade> cities = new ArrayList<>();

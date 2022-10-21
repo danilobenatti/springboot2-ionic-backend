@@ -12,7 +12,8 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import br.com.ecosensor.cursospringmc.domain.enums.EstadoPagamento;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,8 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(of = { "id" })
 @SuperBuilder
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY,
+	property = "@type")
 @Table(name = "tbl_payment")
 @Entity
 public abstract class Pagamento implements Serializable {
@@ -40,7 +43,7 @@ public abstract class Pagamento implements Serializable {
 	@Column(name = "col_status", nullable = false)
 	private Integer status;
 	
-	@JsonBackReference
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "id_order", nullable = false)
 	@MapsId

@@ -13,8 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -43,7 +41,6 @@ public class Cidade implements Serializable {
 	@Column(name = "col_name", length = 85, nullable = false)
 	private String name;
 	
-	@JsonManagedReference
 	@ManyToOne(targetEntity = Estado.class, optional = false)
 	@JoinColumn(name = "col_id_estate", nullable = false,
 		foreignKey = @ForeignKey(name = "fk_city__idestate",

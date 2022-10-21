@@ -13,7 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -53,7 +53,7 @@ public class Endereco implements Serializable {
 	@Column(name = "col_zipcode", length = 10)
 	private String zipCode;
 	
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToOne(targetEntity = Cliente.class, optional = false,
 		cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "id_client", nullable = false, foreignKey = @ForeignKey(

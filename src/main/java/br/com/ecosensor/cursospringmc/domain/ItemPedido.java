@@ -33,6 +33,7 @@ public class ItemPedido implements Serializable {
 	@Column(name = "col_quantity")
 	private Integer quantity;
 	
+	@JsonIgnore
 	@Column(name = "col_product_price")
 	private Double productPrice;
 	
@@ -51,8 +52,16 @@ public class ItemPedido implements Serializable {
 		return id.getOrder();
 	}
 	
+	public void setOrder(Pedido order) {
+		id.setOrder(order);
+	}
+	
 	public Produto getProduct() {
 		return id.getProduct();
+	}
+	
+	public void setProduct(Produto product) {
+		id.setProduct(product);
 	}
 	
 	public Double getSubTotalProductPrice() {

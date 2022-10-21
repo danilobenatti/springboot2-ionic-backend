@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import br.com.ecosensor.cursospringmc.domain.enums.EstadoPagamento;
 import lombok.EqualsAndHashCode;
@@ -20,6 +21,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
+@JsonTypeName(value = "paymentSlipBank")
 @Table(name = "tbl_payment__slipbank")
 @Entity
 public class PagamentoComBoleto extends Pagamento {

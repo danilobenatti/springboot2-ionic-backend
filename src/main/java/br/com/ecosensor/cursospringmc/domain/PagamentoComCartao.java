@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import br.com.ecosensor.cursospringmc.domain.enums.EstadoPagamento;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -18,6 +20,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
+@JsonTypeName(value = "paymentCreditCard")
 @Table(name = "tbl_payment__creditcard")
 @Entity
 public class PagamentoComCartao extends Pagamento {
