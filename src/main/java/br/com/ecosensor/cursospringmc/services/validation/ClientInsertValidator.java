@@ -33,28 +33,32 @@ public class ClientInsertValidator
 		
 		List<FieldMessage> list = new ArrayList<>();
 		
+		String fieldType = "type";
+		String fieldCpfCnpj = "cpfCnpj";
+		String fieldEmail = "email";
+		
 		if (client.getType() == null) {
-			list.add(new FieldMessage("type", "Client type cannot be null."));
+			list.add(new FieldMessage(fieldType, "Client type cannot be null."));
 		}
 		
 		if (client.getType().equals(TipoCliente.PESSOAFISICA.getCode())
 				&& !BR.isValidCpf(client.getCpfCnpj())) {
-			list.add(new FieldMessage("cpfCnpj", "Invalid CPF."));
+			list.add(new FieldMessage(fieldCpfCnpj, "Invalid CPF."));
 		}
 		
 		if (client.getType().equals(TipoCliente.PESSOAJURIDICA.getCode())
 				&& !BR.isValidCnpj(client.getCpfCnpj())) {
-			list.add(new FieldMessage("cpfCnpj", "Invalid CNPJ."));
+			list.add(new FieldMessage(fieldCpfCnpj, "Invalid CNPJ."));
 		}
 		
 		Optional<Cliente> opt1 = repository.findByEmail(client.getEmail());
 		if (opt1.isPresent()) {
-			list.add(new FieldMessage("email", "Already existing e-mail."));
+			list.add(new FieldMessage(fieldEmail, "Already existing e-mail."));
 		}
 		
 		Optional<Cliente> opt2 = repository.findByCpfCnpj(client.getCpfCnpj());
 		if (opt2.isPresent()) {
-			list.add(new FieldMessage("cpfCnpj", "Already existing CPF/CNPJ."));
+			list.add(new FieldMessage(fieldCpfCnpj, "Already existing CPF/CNPJ."));
 		}
 		
 		for (FieldMessage msg : list) {

@@ -1,6 +1,11 @@
 package br.com.ecosensor.cursospringmc.services.validation.utils;
 
 public class BR {
+	
+	private BR() {
+		throw new IllegalStateException("Utility class");
+	}
+	
 	/**
 	 * // Fonte:
 	 * https://gist.github.com/adrianoluis/5043397d378ae506d87366abb0ab4e30
