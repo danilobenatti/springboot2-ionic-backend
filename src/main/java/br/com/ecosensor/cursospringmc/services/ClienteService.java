@@ -87,10 +87,10 @@ public class ClienteService {
 				.client(client).city(city).build();
 		client.getAddresses().add(address);
 		client.getPhones().add(objDto.getPhone1());
-		if (objDto.getPhone2() != null && !objDto.getPhone2().isBlank()) {
+		if (objDto.getPhone2() != null && !objDto.getPhone2().isEmpty()) {
 			client.getPhones().add(objDto.getPhone2());
 		}
-		if (objDto.getPhone3() != null && !objDto.getPhone3().isBlank()) {
+		if (objDto.getPhone3() != null && !objDto.getPhone3().isEmpty()) {
 			client.getPhones().add(objDto.getPhone3());
 		}
 		return client;

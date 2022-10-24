@@ -67,7 +67,7 @@ public class Pedido implements Serializable {
 	private Set<ItemPedido> items = new HashSet<>();
 	
 	public Double getTotalOrderPrice() {
-		var total = 0.0;
+		double total = 0.0;
 		for (ItemPedido itemPedido : items) {
 			total += itemPedido.getSubTotalProductPrice();
 		}
