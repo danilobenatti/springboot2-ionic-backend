@@ -1,8 +1,11 @@
 package br.com.ecosensor.cursospringmc.domain;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -73,4 +76,27 @@ public class Pedido implements Serializable {
 		}
 		return total;
 	}
+	
+	@Override
+	public String toString() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		NumberFormat nf = NumberFormat
+				.getCurrencyInstance(new Locale("pt", "BR"));
+		StringBuilder builder = new StringBuilder();
+		builder.append("Order Number: ");
+		builder.append(getId());
+		builder.append(", Instant: ");
+		builder.append(sdf.format(getInstant()));
+		builder.append(", Client: ");
+		builder.append(getClient().getName());
+		builder.append(", Status: ");
+		builder.append(getPayment().getStatus());
+		builder.append("\nDetails:\n");
+		for (ItemPedido itemPedido : items) {
+			builder.append(itemPedido.toString());
+		}
+		builder.append("Total: " + nf.format(getTotalOrderPrice()));
+		return builder.toString();
+	}
+	
 }

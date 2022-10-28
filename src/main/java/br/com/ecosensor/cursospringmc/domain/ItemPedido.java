@@ -1,6 +1,8 @@
 package br.com.ecosensor.cursospringmc.domain;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -66,6 +68,25 @@ public class ItemPedido implements Serializable {
 	
 	public Double getSubTotalProductPrice() {
 		return (1 - discount / 100) * (productPrice * quantity);
+	}
+	
+	@Override
+	public String toString() {
+		NumberFormat nf = NumberFormat
+				.getCurrencyInstance(new Locale("pt", "BR"));
+		StringBuilder builder = new StringBuilder();
+		builder.append("\tProduct: ");
+		builder.append(getProduct().getName());
+		builder.append(", Qtd: ");
+		builder.append(getQuantity());
+		builder.append(", Price: ");
+		builder.append(nf.format(getProduct().getUnitPrice()));
+		builder.append(", Discount: ");
+		builder.append(getDiscount());
+		builder.append(", SubTotal: ");
+		builder.append(nf.format(getSubTotalProductPrice()));
+		builder.append("\n");
+		return builder.toString();
 	}
 	
 }
