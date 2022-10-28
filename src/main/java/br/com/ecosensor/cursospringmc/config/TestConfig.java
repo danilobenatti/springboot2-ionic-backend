@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import br.com.ecosensor.cursospringmc.services.DBService;
+import br.com.ecosensor.cursospringmc.services.EmailService;
+import br.com.ecosensor.cursospringmc.services.MockMailService;
 
 @Configuration
 @Profile(value = "test")
@@ -19,6 +21,11 @@ public class TestConfig {
 		dbService.instantiateTestDatabase();
 		
 		return true;
+	}
+	
+	@Bean
+	public EmailService emailService() {
+		return new MockMailService();
 	}
 	
 }
