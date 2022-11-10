@@ -137,7 +137,7 @@ public class DBService {
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 		
 		Cliente cli1 = Cliente.builder().name("Pedro Augusto")
-				.email("augusto@email.com").cpfCnpj("49959308000158")
+				.email("danilonb@ecosensor.com.br").cpfCnpj("49959308000158")
 				.type(TipoCliente.PESSOAJURIDICA.getCode()).build();
 		
 		cli1.getPhones().addAll(Arrays.asList("9998893322", "8898894455"));

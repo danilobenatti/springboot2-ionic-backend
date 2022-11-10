@@ -199,7 +199,7 @@ insert into tbl_product(col_name, col_unit_price) values ('Computador', 2000.00)
 insert into tbl_product__category(id_product, id_category) values(1, 1), (1, 4), (2, 1), (2, 2), (2, 4), (3, 1), (3, 4), (4, 2), (5, 3), (6, 3), (7, 4), (8, 5), (9, 6), (10, 6), (11, 7);
 insert into tbl_estate(col_name, col_uf) values('Minas Gerais', 'MG'), ('São Paulo', 'SP');
 insert into tbl_city(col_name, col_id_estate) values('Uberlândia', 1), ('São Paulo', 2), ('Campinas', 2);
-insert into tbl_client(col_name, col_email, col_cpfcnpj, col_type) values ('Maria Silva', 'maria@email.com', '15716283047', 1);
+insert into tbl_client(col_name, col_email, col_cpfcnpj, col_type) values ('Maria Silva', 'danilobenatti@hotmail.com', '15716283047', 1);
 insert into tbl_phone(cliente_id_client, col_phonenumber) values (1,'27363323'), (1,'93838393');
 insert into tbl_address(col_street, col_number, col_complement, col_district, col_zipcode, id_client, id_city) values ('Rua Flores', '300', 'Apto 303', 'Jardim', '38220834', 1, 1), ('Avenida Matos', '105', 'Sala 800', 'Centro', '38777012', 1, 2);
 insert into tbl_order(col_instant, id_client, id_deliveryaddress) values ('2017-09-30 10:32', 1, 1);

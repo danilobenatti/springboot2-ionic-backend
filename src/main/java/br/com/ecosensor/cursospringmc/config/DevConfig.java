@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import br.com.ecosensor.cursospringmc.services.DBService;
+import br.com.ecosensor.cursospringmc.services.EmailService;
+import br.com.ecosensor.cursospringmc.services.SmtpEmailService;
 
 @Configuration
 @Profile(value = "dev")
@@ -26,6 +28,11 @@ public class DevConfig {
 		}
 		return false;
 		
+	}
+	
+	@Bean
+	public EmailService emailService() {
+		return new SmtpEmailService();
 	}
 	
 }
