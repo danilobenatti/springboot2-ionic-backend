@@ -29,7 +29,7 @@ import lombok.Setter;
 @EqualsAndHashCode(of = "id")
 @Builder
 @Table(name = "tbl_address")
-@Entity
+@Entity(name = "address")
 public class Endereco implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

@@ -33,7 +33,7 @@ import lombok.Setter;
 			@UniqueConstraint(name = "uk_estate__name",
 				columnNames = "col_name"),
 			@UniqueConstraint(name = "uk_estate__uf", columnNames = "col_uf") })
-@Entity
+@Entity(name = "estate")
 public class Estado implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

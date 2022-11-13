@@ -33,7 +33,7 @@ import lombok.experimental.SuperBuilder;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY,
 	property = "@type")
 @Table(name = "tbl_payment")
-@Entity
+@Entity(name = "payment")
 public abstract class Pagamento implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

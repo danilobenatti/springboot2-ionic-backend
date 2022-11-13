@@ -37,7 +37,7 @@ import lombok.Setter;
 @EqualsAndHashCode(of = { "id" })
 @Builder
 @Table(name = "tbl_order")
-@Entity
+@Entity(name = "order")
 public class Pedido implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

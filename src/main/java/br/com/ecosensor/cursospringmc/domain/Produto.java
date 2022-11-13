@@ -37,7 +37,7 @@ import lombok.Setter;
 @Table(name = "tbl_product",
 	uniqueConstraints = @UniqueConstraint(name = "uk_product__name",
 		columnNames = "col_name"))
-@Entity
+@Entity(name = "product")
 public class Produto implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

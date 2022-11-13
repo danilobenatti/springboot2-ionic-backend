@@ -21,7 +21,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode(of = { "id" })
 @Table(name = "tbl_ordered__item")
-@Entity
+@Entity(name = "ordered_item")
 public class ItemPedido implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

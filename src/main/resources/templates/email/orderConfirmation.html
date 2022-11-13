@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title th:remove="all">Order Confirmation</title>
+</head>
+<body>
+	<div>
+		<h1>
+			Pedido número: <span th:text="${order.id}"> </span>
+		</h1>
+		<p>
+			Instante: <span th:text="${#dates.format(order.instant, 'dd/MM/yyyy hh:mm')}"></span>
+		</p>
+		<p>
+			Cliente: <span th:text="${order.client.name}"></span>
+		</p>
+		<p>
+			Situação do pagamento: <span th:text="${order.payment.status.description}"></span>
+		</p>
+		<table border="1">
+			<caption>Detalhes do pedido:</caption>
+			<tr>
+				<th>Produto</th>
+				<th>Quantidade</th>
+				<th>Preço unitário</th>
+				<th>Desconto</th>
+				<th>Subtotal</th>
+			</tr>
+			<tr th:each="item : ${order.items}">
+				<td th:text="${item.product.name}">nome</td>
+				<td th:text="${item.quantity}">quantidade</td>
+				<td th:text="${#numbers.formatCurrency(item.productPrice)}">preco</td>
+				<td th:text="${#numbers.formatPercent(item.discount/100, 0, 2)}">desconto</td>
+				<td th:text="${#numbers.formatCurrency(item.getSubTotalProductPrice)}">subTotal</td>
+			</tr>
+		</table>
+		<p>
+			Valor total: <span th:text="${#numbers.formatCurrency(order.getTotalOrderPrice)}"></span>
+		</p>
+	</div>
+</body>
+</html>

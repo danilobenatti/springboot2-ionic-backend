@@ -29,7 +29,7 @@ import lombok.Setter;
 @Table(name = "tbl_category",
 	uniqueConstraints = @UniqueConstraint(name = "uk_category__name",
 		columnNames = "col_name"))
-@Entity
+@Entity(name = "category")
 public class Categoria implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

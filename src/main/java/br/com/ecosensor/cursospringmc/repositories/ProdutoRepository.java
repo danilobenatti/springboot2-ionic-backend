@@ -15,7 +15,7 @@ import br.com.ecosensor.cursospringmc.domain.Produto;
 public interface ProdutoRepository extends CrudRepository<Produto, Integer> {
 	
 	@Transactional(readOnly = true)
-	@Query(value = "SELECT DISTINCT prod FROM Produto prod "
+	@Query(value = "SELECT DISTINCT prod FROM product prod "
 			+ "INNER JOIN prod.categories cat "
 			+ "WHERE LOWER(prod.name) LIKE LOWER(CONCAT('%',:name,'%')) "
 			+ "AND cat IN :categories ")

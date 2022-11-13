@@ -22,7 +22,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @JsonTypeName(value = "paymentCreditCard")
 @Table(name = "tbl_payment__creditcard")
-@Entity
+@Entity(name = "payment_creditcard")
 public class PagamentoComCartao extends Pagamento {
 	private static final long serialVersionUID = 1L;
 	

@@ -23,7 +23,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @JsonTypeName(value = "paymentSlipBank")
 @Table(name = "tbl_payment__slipbank")
-@Entity
+@Entity(name = "payment_slipbank")
 public class PagamentoComBoleto extends Pagamento {
 	private static final long serialVersionUID = 1L;
 	

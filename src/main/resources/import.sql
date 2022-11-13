@@ -10,7 +10,7 @@ insert into tbl_city(col_name, col_id_estate) values('Uberlândia', 1), ('São P
 
 insert into tbl_client(col_name, col_email, col_cpfcnpj, col_type) values ('Maria Silva', 'danilobenatti@hotmail.com', '15716283047', 1);
 
-insert into tbl_phone(cliente_id_client, col_phonenumber) values (1,'27363323'), (1,'93838393');
+insert into tbl_phone(client_id_client, col_phonenumber) values (1,'27363323'), (1,'93838393');
 
 insert into tbl_address(col_street, col_number, col_complement, col_district, col_zipcode, id_client, id_city) values ('Rua Flores', '300', 'Apto 303', 'Jardim', '38220834', 1, 1), ('Avenida Matos', '105', 'Sala 800', 'Centro', '38777012', 1, 2);
 
