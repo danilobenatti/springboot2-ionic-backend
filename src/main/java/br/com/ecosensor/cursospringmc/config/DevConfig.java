@@ -19,7 +19,7 @@ public class DevConfig {
 	private String strategy;
 	
 	@Bean
-	public boolean instantiateDatabase(DBService dbService)
+	boolean instantiateDatabase(DBService dbService)
 			throws ParseException {
 		
 		if ("create".equals(strategy) || "create-drop".equals(strategy)) {
@@ -31,7 +31,7 @@ public class DevConfig {
 	}
 	
 	@Bean
-	public EmailService emailService() {
+	EmailService emailService() {
 		return new SmtpEmailService();
 	}
 	

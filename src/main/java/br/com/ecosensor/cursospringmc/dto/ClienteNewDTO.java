@@ -32,6 +32,9 @@ public class ClienteNewDTO implements Serializable {
 	
 	private Integer type;
 	
+	@NotEmpty(message = "Atributo 'senha': é obrigatório.")
+	private String password;
+	
 	@NotEmpty(message = "Atributo 'logradouro': é obrigatório.")
 	private String street;
 	

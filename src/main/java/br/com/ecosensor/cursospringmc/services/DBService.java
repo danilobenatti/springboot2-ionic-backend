@@ -2,10 +2,12 @@ package br.com.ecosensor.cursospringmc.services;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.ecosensor.cursospringmc.domain.Categoria;
@@ -20,6 +22,7 @@ import br.com.ecosensor.cursospringmc.domain.PagamentoComCartao;
 import br.com.ecosensor.cursospringmc.domain.Pedido;
 import br.com.ecosensor.cursospringmc.domain.Produto;
 import br.com.ecosensor.cursospringmc.domain.enums.EstadoPagamento;
+import br.com.ecosensor.cursospringmc.domain.enums.PerfilUsuario;
 import br.com.ecosensor.cursospringmc.domain.enums.TipoCliente;
 import br.com.ecosensor.cursospringmc.repositories.CategoriaRepository;
 import br.com.ecosensor.cursospringmc.repositories.CidadeRepository;
@@ -31,7 +34,7 @@ import br.com.ecosensor.cursospringmc.repositories.PagamentoRepository;
 import br.com.ecosensor.cursospringmc.repositories.PedidoRepository;
 import br.com.ecosensor.cursospringmc.repositories.ProdutoRepository;
 
-@Service
+@Service()
 public class DBService {
 	
 	@Autowired
@@ -60,6 +63,9 @@ public class DBService {
 	
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 	
 	public void instantiateTestDatabase() throws ParseException {
 		
@@ -136,24 +142,46 @@ public class DBService {
 		
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 		
+		List<Cliente> clients = new ArrayList<>();
+		
 		Cliente cli1 = Cliente.builder().name("Pedro Augusto")
 				.email("danilonb@ecosensor.com.br").cpfCnpj("49959308000158")
-				.type(TipoCliente.PESSOAJURIDICA.getCode()).build();
-		
+				.type(TipoCliente.PESSOAJURIDICA.getCode())
+				.password(passwordEncoder.encode("123456")).build();
 		cli1.getPhones().addAll(Arrays.asList("9998893322", "8898894455"));
+		cli1.addProfile(PerfilUsuario.CLIENT);
+		clients.add(cli1);
 		
-		clienteRepository.save(cli1);
+		Cliente cli2 = Cliente.builder().name("Claudomiro Costa")
+				.email("danilobenatti@yahoo.com.br").cpfCnpj("10505228009")
+				.type(TipoCliente.PESSOAFISICA.getCode())
+				.password(passwordEncoder.encode("123456")).build();
+		cli2.getPhones().add("9938383933");
+		cli2.addProfile(PerfilUsuario.CLIENT);
+		cli2.addProfile(PerfilUsuario.ADMIN);
+		clients.add(cli2);
+		
+		clienteRepository.saveAll(clients);
+		
+		List<Endereco> address = new ArrayList<>();
 		
 		Endereco e1 = Endereco.builder().street("Rua Pedro Moreira")
 				.number("1020").complement("AP5").district("Centro")
 				.zipCode("99000555").client(cli1).city(c1).build();
+		address.add(e1);
 		Endereco e2 = Endereco.builder().street("Avenida Cabral Neto")
 				.number("88").district("Jardim Esplanada").zipCode("45520123")
 				.client(cli1).city(c2).build();
+		address.add(e2);
+		Endereco e3 = Endereco.builder().street("Rua dos Alecrins")
+				.number("301").district("Nova Vista").zipCode("18500900")
+				.client(cli2).city(c3).build();
+		address.add(e3);
 		
 		cli1.getAddresses().addAll(Arrays.asList(e1, e2));
+		cli2.getAddresses().add(e3);
 		
-		enderecoRepository.saveAll(Arrays.asList(e1, e2));
+		enderecoRepository.saveAll(address);
 		
 		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		

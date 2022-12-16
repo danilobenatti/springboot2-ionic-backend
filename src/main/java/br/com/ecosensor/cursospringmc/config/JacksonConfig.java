@@ -13,7 +13,7 @@ import br.com.ecosensor.cursospringmc.domain.PagamentoComCartao;
 public class JacksonConfig {
 	// https://stackoverflow.com/questions/41452598/overcome-can-not-construct-instance-ofinterfaceclass-without-hinting-the-pare
 	@Bean
-	public Jackson2ObjectMapperBuilder objectMapperBuilder() {
+	Jackson2ObjectMapperBuilder objectMapperBuilder() {
 		return new Jackson2ObjectMapperBuilder() {
 			@Override
 			public void configure(ObjectMapper objectMapper) {
@@ -23,4 +23,5 @@ public class JacksonConfig {
 			}
 		};
 	}
+	
 }

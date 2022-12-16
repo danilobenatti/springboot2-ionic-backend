@@ -15,8 +15,7 @@ import br.com.ecosensor.cursospringmc.services.MockMailService;
 public class TestConfig {
 	
 	@Bean
-	public boolean instantiateDatabase(DBService dbService)
-			throws ParseException {
+	boolean instantiateDatabase(DBService dbService) throws ParseException {
 		
 		dbService.instantiateTestDatabase();
 		
@@ -24,7 +23,7 @@ public class TestConfig {
 	}
 	
 	@Bean
-	public EmailService emailService() {
+	EmailService emailService() {
 		return new MockMailService();
 	}
 	

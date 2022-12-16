@@ -8,16 +8,20 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.ecosensor.cursospringmc.domain.Cidade;
 import br.com.ecosensor.cursospringmc.domain.Cliente;
 import br.com.ecosensor.cursospringmc.domain.Endereco;
+import br.com.ecosensor.cursospringmc.domain.enums.PerfilUsuario;
 import br.com.ecosensor.cursospringmc.dto.ClienteDTO;
 import br.com.ecosensor.cursospringmc.dto.ClienteNewDTO;
 import br.com.ecosensor.cursospringmc.repositories.ClienteRepository;
 import br.com.ecosensor.cursospringmc.repositories.EnderecoRepository;
+import br.com.ecosensor.cursospringmc.security.UserSpringSecurity;
+import br.com.ecosensor.cursospringmc.services.exceptions.AuthorizationException;
 import br.com.ecosensor.cursospringmc.services.exceptions.DataIntegrityException;
 import br.com.ecosensor.cursospringmc.services.exceptions.ObjectNotFoundException;
 
@@ -30,11 +34,23 @@ public class ClienteService {
 	@Autowired
 	private EnderecoRepository enderecoRepository;
 	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	
 	public Iterable<Cliente> findAllClient() {
 		return repository.findAll();
 	}
 	
 	public Cliente findClientById(Integer id) {
+		
+		UserSpringSecurity userSpringSecurity = UserService.authenticated();
+		
+		if (userSpringSecurity == null
+				|| !userSpringSecurity.hasHole(PerfilUsuario.ADMIN)
+						&& !id.equals(userSpringSecurity.getId())) {
+			throw new AuthorizationException("Denied Access!");
+		}
+		
 		Optional<Cliente> client = repository.findById(id);
 		return client.orElseThrow(
 				() -> new ObjectNotFoundException("Object not found! Id: " + id
@@ -73,13 +89,14 @@ public class ClienteService {
 	
 	public Cliente fromDto(ClienteDTO objDto) {
 		return new Cliente(objDto.getId(), objDto.getName(), objDto.getEmail(),
-				null, null);
+				null, null, null);
 	}
 	
 	public Cliente fromDto(ClienteNewDTO objDto) {
 		Cliente client = Cliente.builder().name(objDto.getName())
-				.email(objDto.getEmail()).cpfCnpj(objDto.getCpfCnpj())
-				.type(objDto.getType()).build();
+				.email(objDto.getEmail())
+				.password(passwordEncoder.encode(objDto.getPassword()))
+				.cpfCnpj(objDto.getCpfCnpj()).type(objDto.getType()).build();
 		Cidade city = Cidade.builder().id(objDto.getCityid()).build();
 		Endereco address = Endereco.builder().street(objDto.getStreet())
 				.number(objDto.getNumber()).complement(objDto.getComplement())

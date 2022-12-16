@@ -4,9 +4,14 @@ import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.ecosensor.cursospringmc.domain.Cliente;
 import br.com.ecosensor.cursospringmc.domain.ItemPedido;
 import br.com.ecosensor.cursospringmc.domain.PagamentoComBoleto;
 import br.com.ecosensor.cursospringmc.domain.Pedido;
@@ -15,6 +20,8 @@ import br.com.ecosensor.cursospringmc.domain.enums.EstadoPagamento;
 import br.com.ecosensor.cursospringmc.repositories.ItemPedidoRepository;
 import br.com.ecosensor.cursospringmc.repositories.PagamentoRepository;
 import br.com.ecosensor.cursospringmc.repositories.PedidoRepository;
+import br.com.ecosensor.cursospringmc.security.UserSpringSecurity;
+import br.com.ecosensor.cursospringmc.services.exceptions.AuthorizationException;
 import br.com.ecosensor.cursospringmc.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -75,4 +82,18 @@ public class PedidoService {
 		emailService.sendOrderConfirmationEmailHtml(obj);
 		return obj;
 	}
+	
+	public Page<Pedido> findPage(Integer page, Integer size, String orderBy,
+			String direction) {
+		UserSpringSecurity userSpringSecurity = UserService.authenticated();
+		if (userSpringSecurity == null) {
+			throw new AuthorizationException("Denied Access!");
+		}
+		PageRequest pageRequest = PageRequest.of(page, size,
+				Sort.by(Direction.valueOf(direction), orderBy));
+		Cliente client = clienteService
+				.findClientById(userSpringSecurity.getId());
+		return repository.findByClient(client, pageRequest);
+	}
+	
 }

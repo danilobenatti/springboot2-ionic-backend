@@ -30,6 +30,7 @@
         col_email varchar(255) not null,
         col_name varchar(255) not null,
         col_type int4,
+        col_password varchar(255) not null,
         primary key (id_client)
     );
 
@@ -199,9 +200,13 @@ insert into tbl_product(col_name, col_unit_price) values ('Computador', 2000.00)
 insert into tbl_product__category(id_product, id_category) values(1, 1), (1, 4), (2, 1), (2, 2), (2, 4), (3, 1), (3, 4), (4, 2), (5, 3), (6, 3), (7, 4), (8, 5), (9, 6), (10, 6), (11, 7);
 insert into tbl_estate(col_name, col_uf) values('Minas Gerais', 'MG'), ('São Paulo', 'SP');
 insert into tbl_city(col_name, col_id_estate) values('Uberlândia', 1), ('São Paulo', 2), ('Campinas', 2);
-insert into tbl_client(col_name, col_email, col_cpfcnpj, col_type) values ('Maria Silva', 'danilobenatti@hotmail.com', '15716283047', 1);
+insert into tbl_client(col_name, col_email, col_cpfcnpj, col_type) values ('Maria Silva', 'danilobenatti@hotmail.com', '15716283047', 1, '$2a$10$ega/nb28/dFkKUo0LI.pxuhBny1/9o0OQh73rwUl5k87HK3dJgdZ6');
+insert into tbl_client(col_name, col_email, col_cpfcnpj, col_type, col_password) values ('Ana Costa', 'danilobenatti@gmail.com', '15716283050', 1, '$2a$10$wOCwHwzKyFO8xGs/JxfJKed2Hwl6fBpEP1FyMDLxaMhrfKGzcchHm');
+insert into tbl_profile(client_id_client, col_profile) values (1, 2), (2, 1), (2, 2);
 insert into tbl_phone(cliente_id_client, col_phonenumber) values (1,'27363323'), (1,'93838393');
 insert into tbl_address(col_street, col_number, col_complement, col_district, col_zipcode, id_client, id_city) values ('Rua Flores', '300', 'Apto 303', 'Jardim', '38220834', 1, 1), ('Avenida Matos', '105', 'Sala 800', 'Centro', '38777012', 1, 2);
+insert into tbl_address(col_street, col_number, col_complement, col_district, col_zipcode, id_client, id_city) values ('Avenida Matos', '105', 'Sala 800', 'Centro', '38777012', 1, 2);
+insert into tbl_address(col_street, col_number, col_complement, col_district, col_zipcode, id_client, id_city) values ('Avenida Floriano', '2106', null, 'Centro', '28177012', 2, 2);
 insert into tbl_order(col_instant, id_client, id_deliveryaddress) values ('2017-09-30 10:32', 1, 1);
 insert into tbl_payment(id_order, col_status) values (1, 2);
 insert into tbl_payment__creditcard(id_order, col_number_installments) values (1, 6);
