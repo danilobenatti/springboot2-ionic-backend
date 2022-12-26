@@ -8,8 +8,8 @@ insert into tbl_estate(col_name, col_uf) values('Minas Gerais', 'MG'), ('São Pa
 
 insert into tbl_city(col_name, col_id_estate) values('Uberlândia', 1), ('São Paulo', 2), ('Campinas', 2);
 
-insert into tbl_client(col_name, col_email, col_cpfcnpj, col_type, col_password) values ('Maria Silva', 'danilobenatti@hotmail.com', '15716283047', 1, '$2a$10$ega/nb28/dFkKUo0LI.pxuhBny1/9o0OQh73rwUl5k87HK3dJgdZ6');
-insert into tbl_client(col_name, col_email, col_cpfcnpj, col_type, col_password) values ('Ana Costa', 'danilobenatti@gmail.com', '15716283050', 1, '$2a$10$wOCwHwzKyFO8xGs/JxfJKed2Hwl6fBpEP1FyMDLxaMhrfKGzcchHm');
+insert into tbl_client(col_name, col_email, col_cpfcnpj, col_type, col_password, col_imageurl) values ('Maria Silva', 'danilobenatti@hotmail.com', '15716283047', 1, '$2a$10$ega/nb28/dFkKUo0LI.pxuhBny1/9o0OQh73rwUl5k87HK3dJgdZ6', null);
+insert into tbl_client(col_name, col_email, col_cpfcnpj, col_type, col_password, col_imageurl) values ('Ana Costa', 'danilobenatti@gmail.com', '15716283050', 1, '$2a$10$wOCwHwzKyFO8xGs/JxfJKed2Hwl6fBpEP1FyMDLxaMhrfKGzcchHm', null);
 
 insert into tbl_profile(client_id_client, col_profile) values (1, 2), (2, 1), (2, 2);
 

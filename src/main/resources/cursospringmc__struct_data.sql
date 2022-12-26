@@ -31,6 +31,7 @@
         col_name varchar(255) not null,
         col_type int4,
         col_password varchar(255) not null,
+        col_imageurl varchar(255),
         primary key (id_client)
     );
 

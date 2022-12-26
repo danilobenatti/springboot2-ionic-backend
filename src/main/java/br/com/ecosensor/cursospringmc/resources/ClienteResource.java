@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.ecosensor.cursospringmc.domain.Cliente;
@@ -44,20 +45,20 @@ public class ClienteResource {
 	}
 	
 	@PreAuthorize(value = "hasAnyRole('ADMIN')")
-	@GetMapping(value = "/page")
+	@GetMapping(path = "/page")
 	public ResponseEntity<Page<ClienteDTO>> findAllPage(
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "size", defaultValue = "24") Integer size,
 			@RequestParam(value = "orderBy",
-					defaultValue = "name") String orderBy,
+				defaultValue = "name") String orderBy,
 			@RequestParam(value = "direction",
-					defaultValue = "ASC") String direction) {
+				defaultValue = "ASC") String direction) {
 		Page<Cliente> list = service.findPage(page, size, orderBy, direction);
 		Page<ClienteDTO> listDto = list.map(ClienteDTO::new);
 		return ResponseEntity.ok().body(listDto);
 	}
 	
-	@GetMapping(value = "/{id}")
+	@GetMapping(path = "/{id}")
 	public ResponseEntity<Cliente> findById(@PathVariable Integer id) {
 		Cliente client = service.findClientById(id);
 		return ResponseEntity.ok().body(client);
@@ -73,7 +74,7 @@ public class ClienteResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
-	@PutMapping(value = "/{id}")
+	@PutMapping(path = "/{id}")
 	public ResponseEntity<Void> update(@PathVariable Integer id,
 			@Valid @RequestBody ClienteDTO objDto) {
 		Cliente obj = service.fromDto(objDto);
@@ -83,10 +84,17 @@ public class ClienteResource {
 	}
 	
 	@PreAuthorize(value = "hasAnyRole('ADMIN')")
-	@DeleteMapping(value = "/{id}")
+	@DeleteMapping(path = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.deleteClient(id);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@PostMapping(path = "/picture")
+	public ResponseEntity<Void> uploadProfilePicture(
+			@RequestParam(name = "file") MultipartFile multipartFile) {
+		URI uri = service.uploadProfilePicture(multipartFile);
+		return ResponseEntity.created(uri).build();
 	}
 	
 }

@@ -66,6 +66,9 @@ public class Cliente implements Serializable {
 	@Column(name = "col_password", nullable = false)
 	private String password;
 	
+	@Column(name = "col_imageurl", nullable = true)
+	private String imageUrl;
+	
 	@Builder.Default
 	@OneToMany(mappedBy = "client")
 	private List<Endereco> addresses = new ArrayList<>();

@@ -26,7 +26,7 @@ public class PedidoResource {
 	@Autowired
 	private PedidoService service;
 	
-	@GetMapping(value = "/{id}")
+	@GetMapping(path = "/{id}")
 	public ResponseEntity<Pedido> findById(@PathVariable Integer id) {
 		Pedido order = service.findOrderById(id);
 		return ResponseEntity.ok().body(order);

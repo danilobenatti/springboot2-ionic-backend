@@ -41,7 +41,7 @@ public class CategoriaResource {
 		return ResponseEntity.ok().body(collect);
 	}
 	
-	@GetMapping(value = "/page")
+	@GetMapping(path = "/page")
 	public ResponseEntity<Page<CategoriaDTO>> findAllPage(
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "size", defaultValue = "24") Integer size,
@@ -54,7 +54,7 @@ public class CategoriaResource {
 		return ResponseEntity.ok().body(listDto);
 	}
 	
-	@GetMapping(value = "/{id}")
+	@GetMapping(path = "/{id}")
 	public ResponseEntity<Categoria> findById(@PathVariable Integer id) {
 		Categoria category = service.findCategoryById(id);
 		return ResponseEntity.ok().body(category);
@@ -72,7 +72,7 @@ public class CategoriaResource {
 	}
 	
 	@PreAuthorize(value = "hasAnyRole('ADMIN')")
-	@PutMapping(value = "/{id}")
+	@PutMapping(path = "/{id}")
 	public ResponseEntity<Void> update(@PathVariable Integer id,
 			@Valid @RequestBody CategoriaDTO objDto) {
 		Categoria obj = service.fromDto(objDto);
@@ -82,7 +82,7 @@ public class CategoriaResource {
 	}
 	
 	@PreAuthorize(value = "hasAnyRole('ADMIN')")
-	@DeleteMapping(value = "/{id}")
+	@DeleteMapping(path = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.deleteCategory(id);
 		return ResponseEntity.noContent().build();

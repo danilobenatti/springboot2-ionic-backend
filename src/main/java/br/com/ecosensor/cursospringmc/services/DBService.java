@@ -147,7 +147,8 @@ public class DBService {
 		Cliente cli1 = Cliente.builder().name("Pedro Augusto")
 				.email("danilonb@ecosensor.com.br").cpfCnpj("49959308000158")
 				.type(TipoCliente.PESSOAJURIDICA.getCode())
-				.password(passwordEncoder.encode("123456")).build();
+				.password(passwordEncoder.encode("123456")).imageUrl(null)
+				.build();
 		cli1.getPhones().addAll(Arrays.asList("9998893322", "8898894455"));
 		cli1.addProfile(PerfilUsuario.CLIENT);
 		clients.add(cli1);
@@ -155,7 +156,8 @@ public class DBService {
 		Cliente cli2 = Cliente.builder().name("Claudomiro Costa")
 				.email("danilobenatti@yahoo.com.br").cpfCnpj("10505228009")
 				.type(TipoCliente.PESSOAFISICA.getCode())
-				.password(passwordEncoder.encode("123456")).build();
+				.password(passwordEncoder.encode("123456")).imageUrl(null)
+				.build();
 		cli2.getPhones().add("9938383933");
 		cli2.addProfile(PerfilUsuario.CLIENT);
 		cli2.addProfile(PerfilUsuario.ADMIN);

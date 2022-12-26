@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private static final String[] PUBLIC_MATCHERS_GET = { "/produtos/**",
 			"/categorias/**" };
 	
-	private static final String[] PUBLIC_MATCHERS_POST = { "/clientes/**",
+	private static final String[] PUBLIC_MATCHERS_POST = { "/clientes",
 			"/auth/forgot_password/**" };
 	
 	@Override
@@ -69,7 +69,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 * ~~(Migrate manually based on
 	 * https://spring.io/blog/2022/02/21/spring-security-without-the-
 	 * websecurityconfigureradapter)~~>
-	 */@Override
+	 */
+	@Override
 	protected void configure(AuthenticationManagerBuilder auth)
 			throws Exception {
 		auth.userDetailsService(userDetailsService)

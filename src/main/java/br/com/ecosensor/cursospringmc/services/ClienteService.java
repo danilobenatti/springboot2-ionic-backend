@@ -1,5 +1,6 @@
 package br.com.ecosensor.cursospringmc.services;
 
+import java.net.URI;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.com.ecosensor.cursospringmc.domain.Cidade;
 import br.com.ecosensor.cursospringmc.domain.Cliente;
@@ -36,6 +38,9 @@ public class ClienteService {
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private S3Service s3Service;
 	
 	public Iterable<Cliente> findAllClient() {
 		return repository.findAll();
@@ -116,6 +121,21 @@ public class ClienteService {
 	private void updateData(Cliente newObj, Cliente obj) {
 		newObj.setName(obj.getName());
 		newObj.setEmail(obj.getEmail());
+	}
+	
+	public URI uploadProfilePicture(MultipartFile multipartFile) {
+		UserSpringSecurity userSpringSecurity = UserService.authenticated();
+		if (userSpringSecurity == null) {
+			throw new AuthorizationException("Denied Access!");
+		}
+		URI uri = s3Service.uploadFile(multipartFile);
+		Optional<Cliente> client = repository
+				.findById(userSpringSecurity.getId());
+		if (client.isPresent()) {
+			client.get().setImageUrl(uri.toString());
+			repository.save(client.get());
+		}
+		return uri;
 	}
 	
 }

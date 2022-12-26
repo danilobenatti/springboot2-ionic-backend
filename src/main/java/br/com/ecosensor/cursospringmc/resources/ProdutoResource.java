@@ -23,13 +23,13 @@ public class ProdutoResource {
 	@Autowired
 	private ProdutoService service;
 	
-	@GetMapping(value = "/{id}")
+	@GetMapping(path = "/{id}")
 	public ResponseEntity<Produto> findById(@PathVariable Integer id) {
 		Produto order = service.findProductById(id);
 		return ResponseEntity.ok().body(order);
 	}
 	
-	@GetMapping(value = "/page")
+	@GetMapping(path = "/page")
 	public ResponseEntity<Page<ProdutoDTO>> findAllPage(
 			@RequestParam(value = "name", defaultValue = "") String name,
 			@RequestParam(value = "categories",
